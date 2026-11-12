@@ -1,7 +1,8 @@
-import { Archivo } from 'next/font/google';
+import { Barlow, Barlow_Condensed } from 'next/font/google';
 import './globals.css';
 
-const archivo = Archivo({ subsets: ['latin'], axes: ['wdth'], variable: '--font-archivo', display: 'swap' });
+const display = Barlow_Condensed({ subsets: ['latin'], weight: ['600', '700', '800'], style: ['normal', 'italic'], variable: '--font-display', display: 'swap' });
+const body = Barlow({ subsets: ['latin'], weight: ['400', '500', '600', '700'], variable: '--font-body', display: 'swap' });
 
 export const metadata = {
   title: 'Toulouse Nord Padel | Club de padel indoor à Saint-Jory',
@@ -10,7 +11,7 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="fr" className={archivo.variable}>
+    <html lang="fr" className={`${display.variable} ${body.variable}`}>
       <body>{children}</body>
     </html>
   );
