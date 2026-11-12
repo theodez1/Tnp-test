@@ -84,7 +84,7 @@ function Profile({ user }) {
               <CalendarDays size={22} />
               <div>
                 <strong>{longDate(b.date)}</strong>
-                <span>{b.time.replace(':', ' h ')} · {dur(b.duration)} · Terrain {b.court} · {b.players} joueurs</span>
+                <span>{b.time.replace(':', ' h ')} · {dur(b.duration)} · Terrain {b.court}{b.simple ? ' (1 contre 1)' : ''}{b.filmed ? ' · filmé Spash' : ''} · {b.players} joueurs</span>
               </div>
               <button className="link-btn" onClick={() => cancelBooking(b.id)}>Annuler</button>
             </li>

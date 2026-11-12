@@ -9,7 +9,7 @@ export default function CourtsFilmes() {
       <main>
         <PageHero
           title="Courts filmés"
-          lead="Certains terrains sont équipés de caméras. Jouez, puis revoyez vos échanges."
+          lead="Deux terrains sont équipés de caméras Spash. Jouez, puis revoyez vos échanges."
           image="/images/courts-filmes.webp"
           alt="Terrain vu à travers la vitre, sous la verrière"
         />
@@ -17,7 +17,7 @@ export default function CourtsFilmes() {
           <div className="prose">
             <h2>Comment ça marche</h2>
             <ol className="flow">
-              <li><strong>Demandez un terrain équipé</strong> au moment de réserver.</li>
+              <li><strong>Réservez un terrain filmé</strong> : activez le filtre « Terrain filmé Spash » sur la page de réservation.</li>
               <li><strong>Jouez votre match</strong> normalement, sans rien installer.</li>
               <li><strong>Récupérez vos vidéos</strong> selon les modalités indiquées par l'accueil.</li>
             </ol>
@@ -27,7 +27,7 @@ export default function CourtsFilmes() {
             <p>Partager un point gagnant, bien sûr. Mais aussi voir votre placement, comprendre vos fautes et suivre vos progrès d'un match à l'autre.</p>
           </aside>
         </section>
-        <CallBand title="Réserver un court filmé" text="Précisez-le en appelant : l'accueil vous indique les terrains équipés libres." />
+        <CallBand title="Réserver un court filmé" text="Deux terrains sont équipés Spash. Choisissez-les directement au moment de réserver." />
       </main>
       <Footer />
     </>

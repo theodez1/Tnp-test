@@ -186,7 +186,24 @@ p { margin: 0 0 1em; }
 .bk { display: grid; gap: 26px; }
 .bk-step { margin: 0; padding: 0; border: 0; min-width: 0; }
 .bk-step legend { padding: 0; margin-bottom: 10px; font-weight: 700; font-size: 1.05rem; }
-.bk-two { display: grid; grid-template-columns: 1fr 1fr; gap: 26px; }
+.bk-three { display: flex; flex-wrap: wrap; gap: 22px 40px; }
+.chip { display: inline-flex; align-items: center; gap: 8px; }
+.courts { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 10px; }
+.court-card { position: relative; display: flex; flex-direction: column; align-items: flex-start; gap: 8px; min-height: 118px; padding: 14px; text-align: left; border: 1.5px solid var(--line); border-radius: 16px; background: linear-gradient(160deg, #2c6be8, #173f9e); color: #fff; cursor: pointer; overflow: hidden; transition: transform .15s, box-shadow .15s; }
+.court-card::after { content: ''; position: absolute; left: 50%; top: 12px; bottom: 12px; border-left: 2px dashed rgba(255,255,255,.35); }
+.court-card > * { position: relative; z-index: 1; }
+.court-num { font-size: 1.9rem; font-weight: 800; font-style: italic; line-height: 1; }
+.court-tags { display: flex; flex-wrap: wrap; gap: 4px; }
+.tag { white-space: nowrap; display: inline-flex; align-items: center; gap: 4px; padding: 3px 8px; border-radius: 999px; font-size: .74rem; font-weight: 700; background: rgba(255,255,255,.2); }
+.tag-video { background: #fff; color: var(--blue); }
+.court-state { margin-top: auto; font-size: .82rem; font-weight: 600; opacity: .9; }
+.court-card.is-simple { background: linear-gradient(160deg, #3d8fe0, #1c5aa8); }
+.court-card:not(:disabled):hover { transform: translateY(-2px); }
+.court-card.is-on { box-shadow: 0 0 0 3px var(--bg), 0 0 0 6px var(--blue); }
+.court-card.is-on .court-state::before { content: '✓ '; }
+.court-card:disabled { background: #e6ebf3; color: #8793a8; cursor: not-allowed; }
+.court-card:disabled::after { border-color: #c9d2e1; }
+.court-card:disabled .tag { background: #d6deea; color: #6b7891; }
 .chips { display: flex; flex-wrap: wrap; gap: 8px; }
 .chips-scroll { flex-wrap: nowrap; overflow-x: auto; padding-bottom: 6px; margin: 0 calc(var(--gutter) * -1); padding-left: var(--gutter); padding-right: var(--gutter); scrollbar-width: none; }
 .chip, .day, .slot { border: 1.5px solid var(--line); background: var(--card); border-radius: 14px; cursor: pointer; transition: border-color .15s, background-color .15s, color .15s; }
@@ -257,7 +274,8 @@ p { margin: 0 0 1em; }
 }
 @media (max-width: 560px) {
   .facts li { flex: 1 1 calc(50% - 10px); }
-  .bk-two { grid-template-columns: 1fr; }
+  .courts { grid-template-columns: repeat(3, 1fr); gap: 8px; }
+  .court-card { min-height: 104px; padding: 10px; }
   .bk-bar { flex-direction: column; align-items: stretch; padding: 14px; }
   .bk-bar .btn { width: 100%; }
   .event { gap: 12px; padding: 12px; }
