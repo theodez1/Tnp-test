@@ -23,9 +23,14 @@ export default function Home() {
         <section className="hero">
           <img src="/images/hero-padel.webp" alt="Terrains de padel indoor éclairés, vus depuis l'allée vitrée" className="hero-img" />
           <div className="wrap hero-txt">
-            <h1>Le padel à<br /><span>Toulouse Nord</span></h1>
-            <p>9 terrains indoor · Un club-house convivial</p>
-            <p className="hero-hours">Ouvert tous les jours, de 6 h à minuit</p>
+            <h1>Toulouse Nord Padel</h1>
+            <p className="hero-sub">Club de padel indoor à Saint-Jory</p>
+            <ul className="stats">
+              <li><strong>9 terrains</strong><span>tous en indoor</span></li>
+              <li><strong>Jusqu'à minuit</strong><span>7 j/7, dès 6 h</span></li>
+              <li><strong>Gratuit</strong><span>parking sur place</span></li>
+              <li><strong>Club-house</strong><span>bar et détente</span></li>
+            </ul>
           </div>
         </section>
 

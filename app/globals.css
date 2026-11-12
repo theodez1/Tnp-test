@@ -60,12 +60,13 @@ p { margin: 0 0 1em; }
 
 /* En-tête */
 .hdr { position: sticky; top: 0; z-index: 30; background: var(--navy); color: #fff; }
-.hdr-overlay { position: absolute; left: 0; right: 0; background: linear-gradient(180deg, rgba(10,26,58,.8), rgba(10,26,58,0)); }
+.hdr-overlay { position: absolute; left: 0; right: 0; background: linear-gradient(180deg, rgba(10,26,58,.95) 0%, rgba(10,26,58,.75) 55%, rgba(10,26,58,0) 100%); padding-bottom: 28px; }
+.hdr-overlay .nav a { color: #fff; text-shadow: 0 1px 8px rgba(10,26,58,.9); }
 .hdr-overlay.is-open { background: var(--navy); }
 .hdr-in { display: flex; align-items: center; gap: 24px; height: 76px; }
 .brand img { height: 40px; width: auto; }
 .nav { display: flex; gap: 2px; margin-left: auto; }
-.nav a { padding: 8px 12px; text-decoration: none; font-weight: 600; font-size: .95rem; color: rgba(255,255,255,.75); }
+.nav a { padding: 8px 12px; text-decoration: none; font-weight: 600; font-size: 1rem; color: rgba(255,255,255,.88); }
 .nav a:hover, .nav a[aria-current="page"] { color: #fff; }
 .nav a[aria-current="page"] { box-shadow: inset 0 -2px 0 var(--sky); }
 .nav-phone { display: none; }
@@ -128,7 +129,7 @@ p { margin: 0 0 1em; }
 .tile > span { position: relative; z-index: 1; }
 .tiles { padding-left: calc(var(--gutter) + 8px); padding-right: calc(var(--gutter) + 8px); }
 .tile-txt { display: flex; flex-direction: column; line-height: 1.15; }
-.tile-txt strong { font-size: clamp(1.6rem, 2.6vw, 2.1rem); font-style: italic; font-weight: 800; text-transform: uppercase; line-height: 1; }
+.tile-txt strong { white-space: nowrap; font-size: clamp(1.4rem, 2.3vw, 2rem); font-style: italic; font-weight: 800; text-transform: uppercase; line-height: 1; }
 .tile-txt span { font-style: italic; color: rgba(255,255,255,.85); }
 
 .sect { padding-top: clamp(48px, 7vw, 88px); }
@@ -370,3 +371,23 @@ p { margin: 0 0 1em; }
 }
 @media (max-width: 900px) { .nudge { display: none; } }
 @media (prefers-reduced-motion: reduce) { .nudge { animation: none; } }
+
+/* Chiffres clés du hero */
+.stats { list-style: none; margin: 28px 0 0; padding: 0; display: grid; grid-template-columns: repeat(4, auto); justify-content: start; }
+.stats li { display: flex; flex-direction: column; padding: 2px 28px; border-left: 2px solid rgba(255,255,255,.25); }
+.stats li:first-child { padding-left: 0; border-left: 0; }
+.stats strong { font-family: var(--font-display), sans-serif; font-weight: 800; font-size: clamp(2rem, 3.4vw, 2.8rem); line-height: 1; text-transform: uppercase; color: #fff; }
+.stats span { margin-top: 4px; font-size: .95rem; font-weight: 600; color: rgba(255,255,255,.82); }
+@media (max-width: 700px) {
+  .stats { grid-template-columns: 1fr 1fr; gap: 14px 0; margin-top: 22px; }
+  .stats li { padding: 2px 14px; }
+  .stats li:nth-child(odd) { padding-left: 0; border-left: 0; }
+  .stats strong { font-size: 1.6rem; white-space: nowrap; }
+}
+
+.hero h1 { font-size: clamp(2.4rem, 5.5vw, 4.2rem); }
+.hero-txt > p.hero-sub { margin-top: 8px; font-size: clamp(1.05rem, 1.6vw, 1.25rem); font-weight: 500; color: rgba(255,255,255,.85); }
+.hero-txt h1, .hero-txt > p, .stats { text-shadow: 0 2px 14px rgba(10,26,58,.85); }
+@media (max-width: 900px) {
+  .hero::after { background: linear-gradient(0deg, var(--navy) 0%, rgba(10,26,58,.85) 45%, rgba(10,26,58,.55) 75%, rgba(10,26,58,.6) 100%); }
+}
