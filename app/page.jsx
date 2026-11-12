@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { ArrowRight, LayoutGrid, Clock3, ParkingSquare, Coffee } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 import { Header, Footer, EventCard } from '../components/Site';
 import { PHONE, PHONE_HREF, ADDRESS, MAPS_HREF } from '../lib/info';
 import { upcoming } from '../lib/events';
@@ -11,12 +11,6 @@ const TILES = [
   { href: '/courts-filmes', title: 'Courts filmés', sub: 'Matchs & Replays', image: '/images/courts-filmes.webp' },
 ];
 
-const FACTS = [
-  { Icon: LayoutGrid, top: '9 terrains', sub: 'Indoor' },
-  { Icon: Clock3, top: '6 h – 00 h', sub: '7 j/7' },
-  { Icon: ParkingSquare, top: 'Parking', sub: 'Gratuit' },
-  { Icon: Coffee, top: 'Club-house', sub: '& bar' },
-];
 
 export const dynamic = 'force-dynamic';
 
@@ -31,11 +25,7 @@ export default function Home() {
           <div className="wrap hero-txt">
             <h1>Le padel à<br /><span>Toulouse Nord</span></h1>
             <p>9 terrains indoor · Un club-house convivial</p>
-            <ul className="facts">
-              {FACTS.map(({ Icon, top, sub }) => (
-                <li key={top}><Icon size={22} strokeWidth={1.8} /><span><strong>{top}</strong>{sub}</span></li>
-              ))}
-            </ul>
+            <p className="hero-hours">Ouvert tous les jours, de 6 h à minuit</p>
           </div>
         </section>
 

@@ -110,6 +110,7 @@ p { margin: 0 0 1em; }
 .hero::after { content: ''; position: absolute; inset: 0; background: linear-gradient(0deg, var(--navy) 0%, rgba(10,26,58,.75) 32%, rgba(10,26,58,.1) 70%, rgba(10,26,58,.35) 100%); }
 .hero-txt { position: relative; z-index: 1; padding-top: 140px; padding-bottom: 120px; }
 .hero h1 span { color: var(--sky); }
+.hero-txt > p.hero-hours { margin-top: 4px; font-size: 1rem; font-style: normal; color: rgba(255,255,255,.75); }
 .hero-txt > p { margin-top: 14px; font-size: clamp(1.1rem, 2vw, 1.4rem); font-style: italic; color: rgba(255,255,255,.92); }
 .facts { list-style: none; margin: 28px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 10px; }
 .facts li { display: flex; align-items: center; gap: 10px; padding: 10px 16px 10px 12px; border-radius: 14px; background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.16); backdrop-filter: blur(8px); }
@@ -118,11 +119,13 @@ p { margin: 0 0 1em; }
 .facts strong { font-size: .98rem; color: #fff; }
 
 .tiles { position: relative; z-index: 2; margin-top: -80px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
-.tile { position: relative; display: flex; align-items: flex-end; justify-content: space-between; gap: 10px; aspect-ratio: 4 / 3.4; padding: 18px; border-radius: 22px; overflow: hidden; color: #fff; text-decoration: none; background: var(--navy); box-shadow: 0 14px 30px rgba(10,26,58,.22); }
-.tile img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform .4s ease; }
+.tile { position: relative; display: flex; align-items: flex-end; justify-content: space-between; gap: 10px; aspect-ratio: 4 / 3.2; padding: 18px 22px; border-radius: 20px; overflow: hidden; color: #fff; text-decoration: none; background: var(--navy); border: 2.5px solid #fff; box-shadow: 0 14px 30px rgba(10,26,58,.25); transform: skewX(-7deg); }
+.tile > span { transform: skewX(7deg); }
+.tile img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transform: skewX(7deg) scale(1.18); transition: transform .4s ease; }
 .tile::after { content: ''; position: absolute; inset: 0; background: linear-gradient(0deg, rgba(10,26,58,.92) 0%, rgba(10,26,58,.35) 50%, rgba(10,26,58,0) 75%); }
-.tile:hover img { transform: scale(1.04); }
+.tile:hover img { transform: skewX(7deg) scale(1.24); }
 .tile > span { position: relative; z-index: 1; }
+.tiles { padding-left: calc(var(--gutter) + 8px); padding-right: calc(var(--gutter) + 8px); }
 .tile-txt { display: flex; flex-direction: column; line-height: 1.15; }
 .tile-txt strong { font-size: clamp(1.35rem, 2.2vw, 1.8rem); font-style: italic; font-weight: 800; letter-spacing: -.02em; }
 .tile-txt span { font-style: italic; color: rgba(255,255,255,.85); }
@@ -270,8 +273,8 @@ p { margin: 0 0 1em; }
   .ftr { display: none; }
   .court-list { grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); }
   .page { min-height: calc(100vh - 68px - var(--tab-h)); }
-  .hero { min-height: 640px; }
-  .hero-txt { padding-bottom: 100px; }
+  .hero { min-height: 0; }
+  .hero-txt { padding-top: 210px; padding-bottom: 92px; }
   .tiles { grid-template-columns: 1fr 1fr; gap: 12px; margin-top: -64px; }
   .tile { padding: 14px; border-radius: 18px; aspect-ratio: 4 / 3.3; }
   .tile .round { width: 36px; height: 36px; }
@@ -287,10 +290,14 @@ p { margin: 0 0 1em; }
   .event { gap: 12px; padding: 12px; }
   .event-date { width: 66px; height: 76px; }
   .event-body { padding-left: 12px; }
-  .tile-txt span { font-size: .85rem; }
-  .tile-txt strong { font-size: 1.2rem; }
+  .tile { padding: 12px 14px; gap: 6px; }
+  .tile-txt { min-width: 0; }
+  .tile-txt span { font-size: .8rem; white-space: nowrap; }
+  .tile .round { position: absolute; top: 10px; right: 12px; width: 30px; height: 30px; }
+  .tile .round svg { width: 16px; height: 16px; }
+  .tile-txt strong { font-size: 1.12rem; white-space: nowrap; }
   .court-list { grid-template-columns: 1fr; }
-  .sect-head h2 { font-size: 1.35rem; }
+  .sect-head h2 { font-size: 1.2rem; white-space: nowrap; }
   .more { white-space: nowrap; }
 }
 @media (prefers-reduced-motion: reduce) {
