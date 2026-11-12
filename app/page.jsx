@@ -1,90 +1,77 @@
-'use client';
 import Link from 'next/link';
-import { useState } from 'react';
-import { Header, Footer, Court, PHONE, PHONE_HREF, ADDRESS, MAPS_HREF } from '../components/Site';
+import { ArrowRight, LayoutGrid, Clock3, ParkingSquare, Coffee } from 'lucide-react';
+import { Header, Footer, EventCard } from '../components/Site';
+import { PHONE, PHONE_HREF, ADDRESS, MAPS_HREF } from '../lib/info';
+import { upcoming } from '../lib/events';
 
-const ACTIVITIES = [
-  { href: '/reserver', title: 'Jouer', text: 'Réservez un terrain pour un match entre amis, à deux ou à quatre.', image: '/images/jouer.webp', alt: 'Joueur en position de coup droit sur un terrain bleu' },
-  { href: '/tournois', title: 'Tournois', text: 'Compétitions et rencontres organisées par le club tout au long de la saison.', image: '/images/tournois.webp', alt: 'Espace détente face aux terrains pendant un match' },
-  { href: '/academie', title: 'Académie', text: 'Des cours pour découvrir le padel ou travailler votre technique.', image: '/images/academie.webp', alt: 'Raquette de padel et balle posées sur le gazon synthétique' },
-  { href: '/courts-filmes', title: 'Courts filmés', text: 'Revoyez vos plus beaux points grâce aux terrains équipés de caméras.', image: '/images/courts-filmes.webp', alt: 'Terrain vu à travers la vitre, sous la verrière' },
+const TILES = [
+  { href: '/reserver', title: 'Jouer', sub: '& Réserver', image: '/images/academie.webp' },
+  { href: '/tournois', title: 'Tournois', sub: '& Événements', image: '/images/tournois.webp' },
+  { href: '/academie', title: 'Académie', sub: 'Cours & Stages', image: '/images/jouer.webp' },
+  { href: '/courts-filmes', title: 'Courts filmés', sub: 'Matchs & Replays', image: '/images/courts-filmes.webp' },
 ];
 
-const HOURS = Array.from({ length: 19 }, (_, i) => i + 6); // 6 → 24
+const FACTS = [
+  { Icon: LayoutGrid, top: '9 terrains', sub: 'Indoor' },
+  { Icon: Clock3, top: '6 h – 00 h', sub: '7 j/7' },
+  { Icon: ParkingSquare, top: 'Parking', sub: 'Gratuit' },
+  { Icon: Coffee, top: 'Club-house', sub: '& bar' },
+];
+
+export const dynamic = 'force-dynamic';
 
 export default function Home() {
-  const [active, setActive] = useState(0);
+  const events = upcoming().slice(0, 3);
   return (
     <>
-      <Header />
-      <main>
+      <Header overlay />
+      <main className="home">
         <section className="hero">
           <img src="/images/hero-padel.webp" alt="Terrains de padel indoor éclairés, vus depuis l'allée vitrée" className="hero-img" />
           <div className="wrap hero-txt">
-            <h1>Le padel à Toulouse&nbsp;Nord</h1>
-            <p>Un club indoor à Saint-Jory, ouvert à tous les niveaux. Neuf terrains, de 6&nbsp;h à minuit, tous les jours.</p>
-            <div className="hero-cta">
-              <Link className="btn btn-ball btn-lg" href="/reserver">Réserver un terrain</Link>
-              <a className="btn btn-ghost btn-lg" href={PHONE_HREF}>{PHONE}</a>
-            </div>
-          </div>
-        </section>
-
-        <section className="club wrap" aria-labelledby="club-t">
-          <div className="club-courts" aria-hidden="true">
-            {Array.from({ length: 9 }, (_, i) => <Court key={i} />)}
-          </div>
-          <div className="club-info">
-            <h2 id="club-t">Neuf terrains, sous le même toit</h2>
-            <p className="lede">On joue au sec et à la lumière, quelle que soit la météo. Entre deux matchs, le club-house et son bar vous attendent.</p>
-            <dl className="facts">
-              <div><dt>Terrains</dt><dd>9, tous indoor</dd></div>
-              <div><dt>Ouverture</dt><dd>7 jours sur 7</dd></div>
-              <div><dt>Parking</dt><dd>Gratuit, sur place</dd></div>
-              <div><dt>Club-house</dt><dd>Bar et espace détente</dd></div>
-            </dl>
-            <div className="hours" role="img" aria-label="Ouvert de 6 heures à minuit">
-              <div className="hours-bar" />
-              <div className="hours-ticks">
-                {HOURS.map((h) => <span key={h}>{h % 3 === 0 ? (h === 24 ? '0 h' : `${h} h`) : ''}</span>)}
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <section className="acts" aria-labelledby="acts-t">
-          <div className="wrap acts-in">
-            <h2 id="acts-t" className="sr-only">Au club</h2>
-            <div className="acts-media">
-              {ACTIVITIES.map((a, i) => (
-                <img key={a.href} src={a.image} alt={a.alt} className={i === active ? 'is-on' : ''} />
-              ))}
-            </div>
-            <ul className="acts-list">
-              {ACTIVITIES.map((a, i) => (
-                <li key={a.href}>
-                  <Link href={a.href} className={i === active ? 'is-on' : ''} onMouseEnter={() => setActive(i)} onFocus={() => setActive(i)}>
-                    <span className="acts-title">{a.title}</span>
-                    <span className="acts-text">{a.text}</span>
-                  </Link>
-                </li>
+            <h1>Le padel à<br /><span>Toulouse Nord</span></h1>
+            <p>9 terrains indoor · Un club-house convivial</p>
+            <ul className="facts">
+              {FACTS.map(({ Icon, top, sub }) => (
+                <li key={top}><Icon size={22} strokeWidth={1.8} /><span><strong>{top}</strong>{sub}</span></li>
               ))}
             </ul>
           </div>
         </section>
 
-        <section className="visit wrap" aria-labelledby="visit-t">
-          <h2 id="visit-t">Venir au club</h2>
-          <div className="visit-grid">
-            <div>
-              <p className="visit-big">{ADDRESS[0]}<br />{ADDRESS[1]}</p>
-              <p>Au nord de Toulouse, à quelques minutes du périphérique. Parking gratuit devant le club.</p>
-              <a className="btn btn-court" href={MAPS_HREF} target="_blank" rel="noreferrer">Ouvrir dans Google Maps</a>
-            </div>
-            <div>
-              <p className="visit-big">6 h – minuit</p>
-              <p>Tous les jours, y compris le week-end. L'accueil répond au {PHONE} pour les réservations et les inscriptions.</p>
-              <a className="btn btn-court" href={PHONE_HREF}>Appeler le club</a>
+        <section className="wrap tiles" aria-label="Activités du club">
+          {TILES.map((t) => (
+            <Link key={t.href} href={t.href} className="tile">
+              <img src={t.image} alt="" />
+              <span className="tile-txt"><strong>{t.title}</strong><span>{t.sub}</span></span>
+              <span className="round round-glass"><ArrowRight size={20} /></span>
+            </Link>
+          ))}
+        </section>
+
+        <section className="wrap sect" aria-labelledby="ev-t">
+          <div className="sect-head">
+            <h2 id="ev-t">Prochains événements</h2>
+            <Link href="/tournois" className="more">Voir tout <ArrowRight size={18} /></Link>
+          </div>
+          {events.length ? (
+            <div className="events">{events.map((e) => <EventCard key={e.date + e.title} event={e} />)}</div>
+          ) : (
+            <p className="empty">Le prochain calendrier arrive bientôt. Appelez l'accueil pour connaître les dates.</p>
+          )}
+        </section>
+
+        <section className="wrap sect visit" aria-labelledby="visit-t">
+          <div className="visit-photo">
+            <img src="/images/tournois.webp" alt="Le club-house, avec ses canapés face aux terrains" />
+          </div>
+          <div>
+            <h2 id="visit-t">Venir au club</h2>
+            <p className="visit-big">{ADDRESS[0]}<br />{ADDRESS[1]}</p>
+            <p className="muted">Au nord de Toulouse. Parking gratuit devant le club, ouvert tous les jours de 6 h à minuit.</p>
+            <div className="row">
+              <a className="btn btn-blue" href={MAPS_HREF} target="_blank" rel="noreferrer">Itinéraire</a>
+              <a className="btn btn-line" href={PHONE_HREF}>{PHONE}</a>
             </div>
           </div>
         </section>

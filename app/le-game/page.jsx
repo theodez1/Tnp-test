@@ -1,4 +1,5 @@
-import { Header, Footer, PageHero, CallBand, ADDRESS, MAPS_HREF } from '../../components/Site';
+import { Header, Footer, PageHero, CallBand } from '../../components/Site';
+import { ADDRESS, MAPS_HREF } from '../../lib/info';
 
 export const metadata = { title: 'Le club | Toulouse Nord Padel' };
 

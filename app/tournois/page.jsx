@@ -1,4 +1,7 @@
-import { Header, Footer, PageHero, CallBand } from '../../components/Site';
+import { Header, Footer, PageHero, CallBand, EventCard } from '../../components/Site';
+import { upcoming } from '../../lib/events';
+
+export const dynamic = 'force-dynamic';
 
 export const metadata = { title: 'Tournois | Toulouse Nord Padel' };
 
@@ -24,6 +27,7 @@ export default function Tournois() {
           </div>
           <aside className="side">
             <p className="side-h">Calendrier</p>
+            {upcoming().length > 0 && <div className="events">{upcoming().map((e) => <EventCard key={e.date + e.title} event={e} />)}</div>}
             <p>Les dates, catégories et places disponibles changent au cours de la saison. L'accueil vous donne le programme à jour et prend votre inscription.</p>
           </aside>
         </section>
