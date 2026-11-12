@@ -27,7 +27,7 @@ export default function Academie() {
             <p>L'accueil vous présente les formules en cours, les niveaux et les créneaux encore ouverts.</p>
           </aside>
         </section>
-        <CallBand title="Réserver un premier cours" text="Dites-nous votre niveau, on vous oriente vers le bon groupe." />
+        <CallBand phoneOnly title="Réserver un premier cours" text="Dites-nous votre niveau, on vous oriente vers le bon groupe." />
       </main>
       <Footer />
     </>

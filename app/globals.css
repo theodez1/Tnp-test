@@ -68,8 +68,8 @@ p { margin: 0 0 1em; }
 .nav a:hover, .nav a[aria-current="page"] { color: #fff; }
 .nav a[aria-current="page"] { box-shadow: inset 0 -2px 0 var(--sky); }
 .nav-phone { display: none; }
-.icon-btn { display: grid; place-content: center; width: 46px; height: 46px; border-radius: 50%; border: 2px solid rgba(255,255,255,.85); color: #fff; text-decoration: none; }
-.avatar { display: grid; place-content: center; width: 100%; height: 100%; font-weight: 800; font-style: italic; }
+.icon-btn { display: grid; place-items: center; width: 46px; height: 46px; border-radius: 50%; border: 2px solid rgba(255,255,255,.85); color: #fff; text-decoration: none; }
+.avatar { display: grid; place-items: center; width: 100%; height: 100%; font-weight: 800; font-size: 1.15rem; line-height: 1; }
 .burger { display: none; }
 
 /* Barre d'onglets (mobile) */
@@ -97,7 +97,7 @@ p { margin: 0 0 1em; }
     height: calc(var(--tab-h) + env(safe-area-inset-bottom)); padding: 0 6px env(safe-area-inset-bottom);
     background: rgba(255,255,255,.96); backdrop-filter: blur(12px); border-top: 1px solid var(--line);
   }
-  .tab { display: flex; flex-direction: column; align-items: center; gap: 3px; padding-bottom: 10px; text-decoration: none; font-size: .74rem; font-weight: 600; color: #3b4760; }
+  .tab { display: flex; flex-direction: column; align-items: center; gap: 3px; padding-bottom: 10px; text-decoration: none; font-size: .8rem; font-weight: 600; color: #3b4760; }
   .tab.is-on { color: var(--blue); }
   .tab-main { color: #fff; }
   .tab-main .tab-ico { color: #fff; display: grid; place-content: center; width: 64px; height: 64px; margin-top: -26px; margin-bottom: -2px; border-radius: 50%; background: var(--blue); box-shadow: 0 8px 22px rgba(31,107,255,.4), 0 0 0 5px #fff; }
@@ -176,6 +176,7 @@ p { margin: 0 0 1em; }
 .band h2 { font-size: clamp(1.6rem, 3vw, 2.3rem); }
 .band p { margin: 8px 0 0; color: rgba(255,255,255,.78); max-width: 48ch; }
 .band-cta { display: flex; flex-wrap: wrap; gap: 10px; }
+.band .btn-white { color: var(--navy); }
 
 /* Pages applicatives : réservation, compte */
 .page { padding-top: clamp(32px, 5vw, 64px); padding-bottom: clamp(48px, 7vw, 96px); }
@@ -188,27 +189,31 @@ p { margin: 0 0 1em; }
 .bk-step legend { padding: 0; margin-bottom: 10px; font-weight: 700; font-size: 1.05rem; }
 .bk-three { display: flex; flex-wrap: wrap; gap: 22px 40px; }
 .chip { display: inline-flex; align-items: center; gap: 8px; }
-.courts { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 10px; }
-.court-card { position: relative; display: flex; flex-direction: column; align-items: flex-start; gap: 8px; min-height: 118px; padding: 14px; text-align: left; border: 1.5px solid var(--line); border-radius: 16px; background: linear-gradient(160deg, #2c6be8, #173f9e); color: #fff; cursor: pointer; overflow: hidden; transition: transform .15s, box-shadow .15s; }
-.court-card::after { content: ''; position: absolute; left: 50%; top: 12px; bottom: 12px; border-left: 2px dashed rgba(255,255,255,.35); }
-.court-card > * { position: relative; z-index: 1; }
-.court-num { font-size: 1.9rem; font-weight: 800; font-style: italic; line-height: 1; }
-.court-tags { display: flex; flex-wrap: wrap; gap: 4px; }
-.tag { white-space: nowrap; display: inline-flex; align-items: center; gap: 4px; padding: 3px 8px; border-radius: 999px; font-size: .74rem; font-weight: 700; background: rgba(255,255,255,.2); }
-.tag-video { background: #fff; color: var(--blue); }
-.court-state { margin-top: auto; font-size: .82rem; font-weight: 600; opacity: .9; }
-.court-card.is-simple { background: linear-gradient(160deg, #3d8fe0, #1c5aa8); }
-.court-card:not(:disabled):hover { transform: translateY(-2px); }
-.court-card.is-on { box-shadow: 0 0 0 3px var(--bg), 0 0 0 6px var(--blue); }
-.court-card.is-on .court-state::before { content: '✓ '; }
-.court-card:disabled { background: #e6ebf3; color: #8793a8; cursor: not-allowed; }
-.court-card:disabled::after { border-color: #c9d2e1; }
-.court-card:disabled .tag { background: #d6deea; color: #6b7891; }
+.filters { gap: 8px; align-items: center; }
+.chip-sep { display: none; flex: none; width: 1px; height: 26px; background: var(--line); }
+.chip { flex: none; }
+.day { border-radius: 22px; }
+.court-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 18px; }
+.court-item { border-radius: 22px; overflow: hidden; background: var(--card); box-shadow: 0 6px 22px rgba(10,26,58,.08); }
+.court-photo { position: relative; aspect-ratio: 16 / 7.5; background: var(--navy); }
+.court-photo img { width: 100%; height: 100%; object-fit: cover; }
+.court-photo::after { content: ''; position: absolute; inset: 0; background: linear-gradient(0deg, rgba(10,26,58,.45), rgba(10,26,58,0) 55%); }
+.court-badges { position: absolute; z-index: 1; left: 12px; bottom: 12px; display: flex; flex-wrap: wrap; gap: 6px; }
+.badge { display: inline-flex; align-items: center; gap: 4px; padding: 5px 12px; border-radius: 999px; font-size: .78rem; font-weight: 700; text-transform: uppercase; letter-spacing: .02em; color: #fff; border: 1.5px solid #fff; background: rgba(10,26,58,.35); backdrop-filter: blur(4px); }
+.badge-solid { background: #fff; color: var(--navy); }
+.badge-blue { background: var(--blue); border-color: var(--blue); }
+.court-body { padding: 16px 18px 18px; }
+.court-body h3 { font-size: 1.35rem; font-style: normal; letter-spacing: -.01em; margin-bottom: 12px; }
+.times { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 4px; scrollbar-width: thin; }
+.time { flex: none; min-width: 84px; min-height: 44px; padding: 0 14px; border: 1.5px solid #b9c6dc; border-radius: 12px; background: #fff; font-weight: 700; font-variant-numeric: tabular-nums; cursor: pointer; }
+.time:hover { border-color: var(--blue); }
+.time.is-on { background: var(--blue); border-color: var(--blue); color: #fff; }
+.court-full { margin: 0; color: var(--muted); }
 .chips { display: flex; flex-wrap: wrap; gap: 8px; }
 .chips-scroll { flex-wrap: nowrap; overflow-x: auto; padding-bottom: 6px; margin: 0 calc(var(--gutter) * -1); padding-left: var(--gutter); padding-right: var(--gutter); scrollbar-width: none; }
 .chip, .day, .slot { border: 1.5px solid var(--line); background: var(--card); border-radius: 14px; cursor: pointer; transition: border-color .15s, background-color .15s, color .15s; }
 .chip { min-height: 46px; padding: 0 18px; font-weight: 600; }
-.day { flex: none; display: flex; flex-direction: column; align-items: center; width: 64px; padding: 10px 0; line-height: 1.15; font-size: .78rem; color: var(--muted); }
+.day { flex: none; display: flex; flex-direction: column; align-items: center; width: 64px; padding: 10px 0; line-height: 1.15; font-size: .84rem; color: var(--muted); }
 .day strong { font-size: 1.4rem; color: var(--ink); }
 .slots { display: grid; grid-template-columns: repeat(auto-fill, minmax(104px, 1fr)); gap: 8px; }
 .slot { display: flex; flex-direction: column; align-items: flex-start; padding: 10px 12px; line-height: 1.2; }
@@ -262,6 +267,9 @@ p { margin: 0 0 1em; }
 .ftr-legal { margin-top: 44px; padding-top: 20px; padding-bottom: 28px; border-top: 1px solid var(--navy-2); font-size: .85rem; }
 
 @media (max-width: 900px) {
+  .ftr { display: none; }
+  .court-list { grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); }
+  .page { min-height: calc(100vh - 68px - var(--tab-h)); }
   .hero { min-height: 640px; }
   .hero-txt { padding-bottom: 100px; }
   .tiles { grid-template-columns: 1fr 1fr; gap: 12px; margin-top: -64px; }
@@ -274,15 +282,14 @@ p { margin: 0 0 1em; }
 }
 @media (max-width: 560px) {
   .facts li { flex: 1 1 calc(50% - 10px); }
-  .courts { grid-template-columns: repeat(3, 1fr); gap: 8px; }
-  .court-card { min-height: 104px; padding: 10px; }
-  .bk-bar { flex-direction: column; align-items: stretch; padding: 14px; }
-  .bk-bar .btn { width: 100%; }
+  .bk-bar { padding: 10px 10px 10px 16px; gap: 10px; font-size: .88rem; }
+  .bk-bar .btn { min-height: 48px; padding: 0 20px; flex: none; }
   .event { gap: 12px; padding: 12px; }
   .event-date { width: 66px; height: 76px; }
   .event-body { padding-left: 12px; }
   .tile-txt span { font-size: .85rem; }
   .tile-txt strong { font-size: 1.2rem; }
+  .court-list { grid-template-columns: 1fr; }
   .sect-head h2 { font-size: 1.35rem; }
   .more { white-space: nowrap; }
 }

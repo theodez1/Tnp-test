@@ -4,13 +4,17 @@ import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { Check, Video, User, Users } from 'lucide-react';
 import { useUser, addBooking, setPending, takePending } from '../lib/store';
-import { COURT_LIST } from '../lib/info';
+import { COURT_LIST, courtName } from '../lib/info';
 
 const DURATIONS = [{ min: 60, label: '1 h' }, { min: 90, label: '1 h 30' }, { min: 120, label: '2 h' }];
 const durLabel = (m) => DURATIONS.find((d) => d.min === m).label;
 const iso = (d) => d.toISOString().slice(0, 10);
 const hhmm = (m) => `${String(Math.floor(m / 60)).padStart(2, '0')}:${String(m % 60).padStart(2, '0')}`;
 const toMin = (t) => parseInt(t) * 60 + parseInt(t.slice(3));
+
+// Photo affichée sur chaque carte de terrain
+const PHOTOS = ['/images/hero-padel.webp', '/images/courts-filmes.webp', '/images/tournois.webp'];
+const photoFor = (c) => (c.filmed ? '/images/courts-filmes.webp' : c.type === 'simple' ? '/images/jouer.webp' : PHOTOS[c.n % PHOTOS.length]);
 
 // Occupation simulée, stable pour un même terrain et une même demi-heure. À remplacer par l'API du club.
 function takenHalfHour(date, m, n) {
@@ -24,7 +28,7 @@ function courtFree(date, start, duration, n) {
   return true;
 }
 
-// Terrains proposés : en simple, le terrain 1v1 et les terrains de double ; en double, pas le terrain 1v1.
+// En double, pas de terrain 1v1. En simple, le terrain 1v1 et les terrains de double.
 function eligible(court, players, filmedOnly) {
   if (players === 4 && court.type === 'simple') return false;
   if (filmedOnly && !court.filmed) return false;
@@ -39,39 +43,40 @@ export default function Booking() {
   const [duration, setDuration] = useState(90);
   const [players, setPlayers] = useState(4);
   const [filmedOnly, setFilmedOnly] = useState(false);
-  const [time, setTime] = useState(null);
-  const [court, setCourt] = useState(null);
+  const [pick, setPick] = useState(null); // { court, time }
   const [done, setDone] = useState(null);
 
   useEffect(() => {
     if (!user) return;
     const p = takePending();
-    if (p) { setDate(p.date); setDuration(p.duration); setPlayers(p.players); setFilmedOnly(!!p.filmedOnly); setTime(p.time); setCourt(p.court); }
+    if (p) { setDate(p.date); setDuration(p.duration); setPlayers(p.players); setFilmedOnly(!!p.filmedOnly); setPick({ court: p.court, time: p.time }); }
   }, [user]);
 
-  const courts = COURT_LIST.filter((c) => eligible(c, players, filmedOnly));
-  const now = new Date();
-  const slots = [];
-  for (let m = 6 * 60; m + duration <= 24 * 60; m += 30) {
-    const start = hhmm(m);
-    const past = date === iso(now) && m <= now.getHours() * 60 + now.getMinutes();
-    slots.push({ start, free: past ? 0 : courts.filter((c) => courtFree(date, start, duration, c.n)).length });
-  }
+  const reset = (fn) => (v) => { fn(v); setPick(null); };
 
-  const reset = (fn) => (v) => { fn(v); setTime(null); setCourt(null); };
-  const pickTime = (t) => {
-    setTime(t);
-    // On présélectionne le premier terrain libre, l'utilisateur peut en changer
-    const first = courts.find((c) => courtFree(date, t, duration, c.n));
-    setCourt(first ? first.n : null);
+  // Pour le simple, le terrain 1v1 passe en premier
+  const courts = COURT_LIST.filter((c) => eligible(c, players, filmedOnly))
+    .sort((a, b) => (players === 2 ? (a.type === 'simple' ? -1 : b.type === 'simple' ? 1 : 0) : 0));
+
+  const now = new Date();
+  const startMin = date === iso(now) ? Math.ceil((now.getHours() * 60 + now.getMinutes() + 1) / 30) * 30 : 6 * 60;
+  const timesFor = (c) => {
+    const out = [];
+    for (let m = Math.max(startMin, 6 * 60); m + duration <= 24 * 60; m += 30) {
+      const t = hhmm(m);
+      if (courtFree(date, t, duration, c.n)) out.push(t);
+    }
+    return out;
   };
 
+  const selected = pick && COURT_LIST.find((c) => c.n === pick.court);
+
   function confirm() {
-    const b = { date, time, duration, players, court, filmedOnly };
+    const b = { date, time: pick.time, duration, players, court: pick.court, filmedOnly };
     if (!user) { setPending(b); router.push('/compte?suite=reserver'); return; }
-    const c = COURT_LIST.find((x) => x.n === court);
-    addBooking({ date, time, duration, players, court, filmed: !!c.filmed, simple: c.type === 'simple', email: user.email });
-    setDone({ ...b, filmed: c.filmed }); setTime(null); setCourt(null);
+    addBooking({ date, time: pick.time, duration, players, court: pick.court, courtName: courtName(selected), filmed: !!selected.filmed, simple: selected.type === 'simple', email: user.email });
+    setDone({ ...b, name: courtName(selected), filmed: selected.filmed });
+    setPick(null);
   }
 
   const label = (d) => new Date(d + 'T12:00:00').toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long' });
@@ -80,8 +85,8 @@ export default function Booking() {
     return (
       <div className="bk-done">
         <span className="bk-check"><Check size={30} strokeWidth={2.6} /></span>
-        <h2>Terrain {done.court} réservé</h2>
-        <p>Le {label(done.date)} à {done.time.replace(':', ' h ')}, pour {durLabel(done.duration)}.{done.filmed && ' Votre match sera filmé par Spash.'}</p>
+        <h2>{done.name} réservé</h2>
+        <p>Le {label(done.date)} à {done.time.replace(':', ' h ')}, pour {durLabel(done.duration)}.{done.filmed && ' Votre match sera filmé.'}</p>
         <div className="row">
           <Link className="btn btn-blue" href="/compte">Voir mes réservations</Link>
           <button className="btn btn-line" onClick={() => setDone(null)}>Réserver un autre créneau</button>
@@ -92,93 +97,75 @@ export default function Booking() {
 
   return (
     <div className="bk">
-      <fieldset className="bk-step">
-        <legend>Jour</legend>
-        <div className="chips chips-scroll">
-          {days.map((d) => {
-            const v = iso(d);
-            return (
-              <button key={v} type="button" className={`day ${date === v ? 'is-on' : ''}`} aria-pressed={date === v} onClick={() => reset(setDate)(v)}>
-                <span>{d.toLocaleDateString('fr-FR', { weekday: 'short' }).replace('.', '')}</span>
-                <strong>{d.getDate()}</strong>
-                <span>{d.toLocaleDateString('fr-FR', { month: 'short' }).replace('.', '')}</span>
-              </button>
-            );
-          })}
-        </div>
-      </fieldset>
-
-      <div className="bk-three">
-        <fieldset className="bk-step">
-          <legend>Format</legend>
-          <div className="chips">
-            <button type="button" className={`chip ${players === 4 ? 'is-on' : ''}`} aria-pressed={players === 4} onClick={() => reset(setPlayers)(4)}><Users size={18} /> Double · 4</button>
-            <button type="button" className={`chip ${players === 2 ? 'is-on' : ''}`} aria-pressed={players === 2} onClick={() => reset(setPlayers)(2)}><User size={18} /> Simple · 2</button>
-          </div>
-        </fieldset>
-        <fieldset className="bk-step">
-          <legend>Durée</legend>
-          <div className="chips">
-            {DURATIONS.map((d) => (
-              <button key={d.min} type="button" className={`chip ${duration === d.min ? 'is-on' : ''}`} aria-pressed={duration === d.min} onClick={() => reset(setDuration)(d.min)}>{d.label}</button>
-            ))}
-          </div>
-        </fieldset>
-        <fieldset className="bk-step">
-          <legend>Vidéo</legend>
-          <div className="chips">
-            <button type="button" className={`chip ${filmedOnly ? 'is-on' : ''}`} aria-pressed={filmedOnly} onClick={() => reset(setFilmedOnly)(!filmedOnly)}><Video size={18} /> Terrain filmé Spash</button>
-          </div>
-        </fieldset>
-      </div>
-
-      <fieldset className="bk-step">
-        <legend>Heure de début</legend>
-        <div className="slots">
-          {slots.map((s) => (
-            <button key={s.start} type="button" disabled={!s.free} className={`slot ${time === s.start ? 'is-on' : ''}`} aria-pressed={time === s.start} onClick={() => pickTime(s.start)}>
-              <strong>{s.start}</strong>
-              <span>{s.free ? `${s.free} terrain${s.free > 1 ? 's' : ''}` : 'Complet'}</span>
+      <div className="chips chips-scroll" role="group" aria-label="Jour">
+        {days.map((d) => {
+          const v = iso(d);
+          return (
+            <button key={v} type="button" className={`day ${date === v ? 'is-on' : ''}`} aria-pressed={date === v} onClick={() => reset(setDate)(v)}>
+              <span>{d.toLocaleDateString('fr-FR', { weekday: 'short' })}</span>
+              <strong>{d.getDate()}</strong>
+              <span>{d.toLocaleDateString('fr-FR', { month: 'short' })}</span>
             </button>
-          ))}
-        </div>
-      </fieldset>
-
-      {time && (
-        <fieldset className="bk-step">
-          <legend>Terrain, à {time.replace(':', ' h ')}</legend>
-          <div className="courts">
-            {COURT_LIST.map((c) => {
-              const ok = eligible(c, players, filmedOnly);
-              const free = ok && courtFree(date, time, duration, c.n);
-              const why = !ok ? (c.type === 'simple' ? 'Réservé au simple' : 'Non filmé') : free ? 'Libre' : 'Occupé';
-              return (
-                <button key={c.n} type="button" disabled={!free} className={`court-card ${court === c.n ? 'is-on' : ''} ${c.type === 'simple' ? 'is-simple' : ''}`} aria-pressed={court === c.n} onClick={() => setCourt(c.n)}>
-                  <span className="court-num">{c.n}</span>
-                  <span className="court-tags">
-                    {c.type === 'simple' && <span className="tag"><User size={14} /> 1v1</span>}
-                    {c.filmed && <span className="tag tag-video"><Video size={14} /> Spash</span>}
-                  </span>
-                  <span className="court-state">{why}</span>
-                </button>
-              );
-            })}
-          </div>
-        </fieldset>
-      )}
-
-      <div className="bk-bar">
-        <div>
-          {time && court ? (
-            <><strong>{label(date)}</strong><span>{time.replace(':', ' h ')} · {durLabel(duration)} · Terrain {court}{COURT_LIST.find((c) => c.n === court).filmed ? ' · filmé' : ''}</span></>
-          ) : (
-            <span>{time ? 'Choisissez un terrain libre.' : 'Choisissez une heure de début.'}</span>
-          )}
-        </div>
-        <button className="btn btn-blue btn-lg" disabled={!time || !court} onClick={confirm}>
-          {user === null ? 'Se connecter pour réserver' : 'Réserver ce terrain'}
-        </button>
+          );
+        })}
       </div>
+
+      <div className="chips filters" role="group" aria-label="Filtres">
+        <button type="button" className={`chip ${players === 4 ? 'is-on' : ''}`} aria-pressed={players === 4} onClick={() => reset(setPlayers)(4)}><Users size={18} /> Double</button>
+        <button type="button" className={`chip ${players === 2 ? 'is-on' : ''}`} aria-pressed={players === 2} onClick={() => reset(setPlayers)(2)}><User size={18} /> Simple 1v1</button>
+        <span className="chip-sep" aria-hidden="true" />
+        {DURATIONS.map((d) => (
+          <button key={d.min} type="button" className={`chip ${duration === d.min ? 'is-on' : ''}`} aria-pressed={duration === d.min} onClick={() => reset(setDuration)(d.min)}>{d.label}</button>
+        ))}
+        <span className="chip-sep" aria-hidden="true" />
+        <button type="button" className={`chip ${filmedOnly ? 'is-on' : ''}`} aria-pressed={filmedOnly} onClick={() => reset(setFilmedOnly)(!filmedOnly)}><Video size={18} /> Filmé</button>
+      </div>
+
+      <div className="court-list">
+        {courts.map((c) => {
+          const times = timesFor(c);
+          return (
+            <article key={c.n} className="court-item">
+              <div className="court-photo">
+                <img src={photoFor(c)} alt="" loading="lazy" />
+                <div className="court-badges">
+                  <span className="badge">Padel</span>
+                  <span className="badge badge-solid">Indoor</span>
+                  {c.type === 'simple' && <span className="badge badge-solid"><User size={14} /> 1v1</span>}
+                  {c.filmed && <span className="badge badge-blue"><Video size={14} /> Filmé</span>}
+                </div>
+              </div>
+              <div className="court-body">
+                <h3>{courtName(c)}</h3>
+                {times.length ? (
+                  <div className="times">
+                    {times.map((t) => {
+                      const on = pick && pick.court === c.n && pick.time === t;
+                      return (
+                        <button key={t} type="button" className={`time ${on ? 'is-on' : ''}`} aria-pressed={on} aria-label={`${courtName(c)} à ${t}`} onClick={() => setPick(on ? null : { court: c.n, time: t })}>{t}</button>
+                      );
+                    })}
+                  </div>
+                ) : (
+                  <p className="court-full">Complet ce jour-là pour {durLabel(duration)}.</p>
+                )}
+              </div>
+            </article>
+          );
+        })}
+      </div>
+
+      {pick && selected && (
+        <div className="bk-bar">
+          <div>
+            <strong>{courtName(selected)}</strong>
+            <span>{label(date)} · {pick.time.replace(':', ' h ')} · {durLabel(duration)}</span>
+          </div>
+          <button className="btn btn-blue btn-lg" onClick={confirm}>
+            {user === null ? 'Se connecter pour réserver' : 'Réserver'}
+          </button>
+        </div>
+      )}
     </div>
   );
 }

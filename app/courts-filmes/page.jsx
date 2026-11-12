@@ -17,7 +17,7 @@ export default function CourtsFilmes() {
           <div className="prose">
             <h2>Comment ça marche</h2>
             <ol className="flow">
-              <li><strong>Réservez un terrain filmé</strong> : activez le filtre « Terrain filmé Spash » sur la page de réservation.</li>
+              <li><strong>Réservez un terrain filmé</strong> : activez le filtre « Filmé » sur la page de réservation.</li>
               <li><strong>Jouez votre match</strong> normalement, sans rien installer.</li>
               <li><strong>Récupérez vos vidéos</strong> selon les modalités indiquées par l'accueil.</li>
             </ol>

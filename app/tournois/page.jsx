@@ -31,7 +31,7 @@ export default function Tournois() {
             <p>Les dates, catégories et places disponibles changent au cours de la saison. L'accueil vous donne le programme à jour et prend votre inscription.</p>
           </aside>
         </section>
-        <CallBand title="Inscrire votre équipe" text="Demandez les prochaines dates et réservez votre place auprès de l'accueil." />
+        <CallBand phoneOnly title="Inscrire votre équipe" text="Demandez les prochaines dates et réservez votre place auprès de l'accueil." />
       </main>
       <Footer />
     </>

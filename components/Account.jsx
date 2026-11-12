@@ -69,7 +69,7 @@ function Profile({ user }) {
         <span className="avatar avatar-lg">{user.name.slice(0, 1).toUpperCase()}</span>
         <div>
           <h1>Bonjour {user.name.split(' ')[0]}</h1>
-          <p className="muted">{user.email} · {user.phone}</p>
+          <p className="muted">{user.email}<br />{user.phone}</p>
         </div>
       </div>
 
@@ -84,7 +84,7 @@ function Profile({ user }) {
               <CalendarDays size={22} />
               <div>
                 <strong>{longDate(b.date)}</strong>
-                <span>{b.time.replace(':', ' h ')} · {dur(b.duration)} · Terrain {b.court}{b.simple ? ' (1 contre 1)' : ''}{b.filmed ? ' · filmé Spash' : ''} · {b.players} joueurs</span>
+                <span>{b.time.replace(':', ' h ')} · {dur(b.duration)} · {b.courtName || `Court ${b.court}`}{b.simple ? ' (1v1)' : ''}{b.filmed ? ' · filmé' : ''} · {b.players} joueurs</span>
               </div>
               <button className="link-btn" onClick={() => cancelBooking(b.id)}>Annuler</button>
             </li>

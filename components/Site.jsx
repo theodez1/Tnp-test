@@ -105,7 +105,7 @@ export function PageHero({ title, lead, image, alt }) {
   );
 }
 
-export function CallBand({ title, text, href = '/reserver', cta = 'Réserver un terrain' }) {
+export function CallBand({ title, text, href = '/reserver', cta = 'Réserver un terrain', phoneOnly = false }) {
   return (
     <section className="band">
       <div className="wrap band-in">
@@ -114,8 +114,8 @@ export function CallBand({ title, text, href = '/reserver', cta = 'Réserver un 
           <p>{text}</p>
         </div>
         <div className="band-cta">
-          <Link className="btn btn-white btn-lg" href={href}>{cta}</Link>
-          <a className="btn btn-ghost btn-lg" href={PHONE_HREF}>{PHONE}</a>
+          {!phoneOnly && <Link className="btn btn-white btn-lg" href={href}>{cta}</Link>}
+          <a className={`btn btn-lg ${phoneOnly ? 'btn-white' : 'btn-ghost'}`} href={PHONE_HREF}>{phoneOnly ? `Appeler le ${PHONE}` : PHONE}</a>
         </div>
       </div>
     </section>
