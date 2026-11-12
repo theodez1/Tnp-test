@@ -492,3 +492,43 @@ p { margin: 0 0 1em; }
   .hero { min-height: 0; }
   .hero-txt { padding-top: clamp(150px, 22vh, 220px); padding-bottom: 130px; }
 }
+
+/* Page Le club */
+.figures { display: grid; grid-template-columns: repeat(4, 1fr); border-radius: 22px; background: var(--navy); color: #fff; overflow: hidden; }
+.figure { display: flex; flex-direction: column; padding: 26px 24px; }
+.figure + .figure { border-left: 1px solid rgba(255,255,255,.12); }
+.figure strong { font-family: var(--font-display), sans-serif; font-style: italic; font-weight: 800; font-size: clamp(3rem, 6vw, 4.6rem); line-height: .9; color: var(--sky); }
+.figure span { margin-top: 10px; font-weight: 700; font-size: 1.05rem; }
+.figure small { margin-top: 2px; font-size: .9rem; color: rgba(255,255,255,.7); }
+.bar { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: clamp(24px, 4vw, 56px); align-items: start; }
+.bar-photo { position: relative; }
+.bar-photo img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; border-radius: 22px; }
+.bar-hours { position: absolute; left: 14px; bottom: 14px; padding: 6px 12px; border-radius: 999px; background: #fff; color: var(--navy); font-weight: 700; font-size: .9rem; }
+.bar h2 { margin-bottom: 8px; }
+.menu { list-style: none; margin: 22px 0 0; padding: 0; }
+.menu li { display: flex; align-items: baseline; gap: 10px; padding: 11px 0; border-bottom: 1px solid var(--line); }
+.menu li span { font-weight: 700; }
+.menu li i { flex: 1; border-bottom: 2px dotted #c7d0df; transform: translateY(-4px); }
+.menu li em { font-style: normal; color: var(--muted); font-size: .92rem; text-align: right; }
+.offers { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+.offer { padding: 22px; border-radius: 20px; background: var(--card); border: 1px solid var(--line); }
+.offer-k { font-size: .9rem; font-weight: 700; color: var(--blue); }
+.offer strong { display: block; margin: 4px 0 8px; font-family: var(--font-display), sans-serif; font-style: italic; font-weight: 800; text-transform: uppercase; font-size: 1.9rem; line-height: 1; }
+.offer p { margin: 0; color: var(--muted); }
+.visit-card { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 18px 32px; padding: 24px; border-radius: 22px; background: var(--card); border: 1px solid var(--line); }
+.visit-card .visit-big { margin-bottom: 6px; }
+@media (max-width: 900px) {
+  .figures { grid-template-columns: 1fr 1fr; }
+  .figure:nth-child(3) { border-left: 0; }
+  .figure:nth-child(n+3) { border-top: 1px solid rgba(255,255,255,.12); }
+  .bar { grid-template-columns: 1fr; }
+  .bar-photo img { aspect-ratio: 16 / 10; }
+  .offers { grid-template-columns: 1fr; }
+}
+@media (max-width: 560px) {
+  .figure { padding: 18px 16px; }
+  .figure span { font-size: .95rem; }
+  .menu li { flex-wrap: wrap; gap: 2px 10px; }
+  .menu li i { display: none; }
+  .menu li em { width: 100%; text-align: left; }
+}

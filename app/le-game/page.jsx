@@ -1,31 +1,24 @@
 import { Header, Footer, PageHero, CallBand } from '../../components/Site';
-import { ServiceGrid } from '../../components/Services';
 import { ADDRESS, MAPS_HREF, EMAIL, PHONE, PHONE_HREF } from '../../lib/info';
 
 export const metadata = { title: 'Le club | Toulouse Nord Padel' };
 
-const COURTS = [
-  { icon: 'Award', title: '9 terrains FFT', text: '8 doubles et 1 single, homologués pour les tournois officiels.' },
-  { icon: 'Thermometer', title: 'Chauffés et climatisés', text: 'Les mêmes conditions de jeu été comme hiver.' },
-  { icon: 'Ruler', title: '9 m sous plafond', text: 'Éclairage anti-éblouissement dernière génération.' },
-  { icon: 'Video', title: 'Courts centraux filmés', text: 'Vidéo et statistiques de match en temps réel.', tag: '+1 €' },
-  { icon: 'CalendarClock', title: 'Ouvert 365 jours', text: 'De 6 h à minuit, accès autonome tôt le matin et tard le soir.' },
+const FIGURES = [
+  { big: '9', label: 'terrains homologués FFT', sub: '8 doubles et 1 single' },
+  { big: '9 m', label: 'sous plafond', sub: 'éclairage anti-éblouissement' },
+  { big: '365', label: 'jours par an', sub: 'de 6 h à minuit' },
+  { big: '2', label: 'courts centraux filmés', sub: 'vidéo et statistiques' },
 ];
 
 const MENU = [
-  { icon: 'Pizza', title: 'Pizzas', text: 'Pizzas fraîches de Ma Minute Pizza.' },
-  { icon: 'Fish', title: 'Sushis et poke', text: 'Par Washoku by Zoé.' },
-  { icon: 'UtensilsCrossed', title: 'Planches apéro', text: 'Fromages et charcuterie à partager.' },
-  { icon: 'Beer', title: 'Bières locales', text: 'Le Gué de Moines, La Berlue, jus artisanaux et vins.' },
-  { icon: 'IceCream', title: 'Glaces', text: 'Glaces artisanales La Prairie des Glaces.' },
-  { icon: 'Coffee', title: 'Petit-déjeuner', text: 'Dès 9 h, et un menu enfant pour les familles.' },
-];
-
-const EVENTS = [
-  { icon: 'Presentation', title: 'Salle de séminaire', text: "45 m² climatisés, jusqu'à 35 personnes, écran connecté.", tag: '35 pers.' },
-  { icon: 'Sun', title: 'Terrasse privatisable', text: 'Afterworks, associations, comités d’entreprise.' },
-  { icon: 'Cake', title: 'Anniversaires enfants', text: 'Une session de padel puis le goûter au club.' },
-  { icon: 'Tv', title: 'Soirées sport', text: 'Écran géant pour le foot, le rugby, le tennis et le vélo.' },
+  { item: 'Pizzas fraîches', from: 'Ma Minute Pizza' },
+  { item: 'Sushis et poke bowls', from: 'Washoku by Zoé' },
+  { item: 'Planches fromage et charcuterie', from: 'À partager' },
+  { item: 'Bières locales', from: 'Le Gué de Moines, La Berlue' },
+  { item: 'Jus artisanaux et vins', from: 'Sélection du bar' },
+  { item: 'Glaces artisanales', from: 'La Prairie des Glaces' },
+  { item: 'Petit-déjeuner', from: 'Dès 9 h' },
+  { item: 'Menu enfant', from: 'Pour les familles' },
 ];
 
 export default function LeClub() {
@@ -34,41 +27,62 @@ export default function LeClub() {
       <Header />
       <main>
         <PageHero title="Le club" lead="Plus qu'un club de padel. Un lieu de vie." image="/images/hero-padel.webp" alt="Terrains de padel indoor éclairés" />
-        <div className="wrap">
-          <section className="block">
-            <h2>Les terrains</h2>
-            <ServiceGrid items={COURTS} />
-          </section>
 
-          <section className="block">
-            <div className="split-media">
-              <img src="/images/tournois.webp" alt="Le club-house, avec ses canapés face aux terrains" />
-              <div>
-                <h2>Bar et snacking</h2>
-                <p className="muted">Ouvert de 9 h à 22 h 30, dans le club-house climatisé ou en terrasse.</p>
+        <section className="wrap block">
+          <h2>Les terrains</h2>
+          <div className="figures">
+            {FIGURES.map((f) => (
+              <div key={f.label} className="figure">
+                <strong>{f.big}</strong>
+                <span>{f.label}</span>
+                <small>{f.sub}</small>
               </div>
+            ))}
+          </div>
+          <p className="block-note">Chauffés l'hiver, climatisés l'été. Le court filmé coûte 1 € de plus par créneau.</p>
+        </section>
+
+        <section className="wrap block">
+          <div className="bar">
+            <div className="bar-photo">
+              <img src="/images/tournois.webp" alt="Le club-house, avec ses canapés face aux terrains" />
+              <span className="bar-hours">Bar ouvert de 9 h à 22 h 30</span>
             </div>
-            <ServiceGrid items={MENU} />
-          </section>
+            <div>
+              <h2>Bar et snacking</h2>
+              <p className="muted">Au club-house climatisé ou en terrasse, avec écran géant pour le foot, le rugby, le tennis et le vélo.</p>
+              <ul className="menu">
+                {MENU.map((m) => (
+                  <li key={m.item}><span>{m.item}</span><i aria-hidden="true" /><em>{m.from}</em></li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </section>
 
-          <section className="block">
-            <h2>Événements et séminaires</h2>
-            <ServiceGrid items={EVENTS} />
-          </section>
+        <section className="wrap block">
+          <h2>Événements et séminaires</h2>
+          <div className="offers">
+            <div className="offer"><span className="offer-k">Séminaires</span><strong>35 personnes</strong><p>Salle climatisée de 45 m², écran connecté, rétroprojecteur et café.</p></div>
+            <div className="offer"><span className="offer-k">Terrasse privatisable</span><strong>Sur devis</strong><p>Afterworks, associations, comités d'entreprise.</p></div>
+            <div className="offer"><span className="offer-k">Anniversaires enfants</span><strong>Padel et goûter</strong><p>Une session sur les terrains puis le goûter au club-house.</p></div>
+          </div>
+        </section>
 
-          <section className="block">
-            <h2>Venir au club</h2>
-            <ServiceGrid items={[
-              { icon: 'ParkingSquare', title: 'Parking gratuit', text: 'Devant le club, avec bornes de recharge électrique.' },
-              { icon: 'PlugZap', title: 'Accès A62', text: `${ADDRESS[0]}, ${ADDRESS[1]}. Axe Toulouse – Montauban.` },
-            ]} />
-            <div className="row" style={{ marginTop: 16 }}>
+        <section className="wrap block">
+          <h2>Venir au club</h2>
+          <div className="visit-card">
+            <div>
+              <p className="visit-big">{ADDRESS[0]}<br />{ADDRESS[1]}</p>
+              <p className="muted">Accès direct par l'A62, axe Toulouse – Montauban. Parking gratuit avec bornes de recharge électrique.</p>
+            </div>
+            <div className="row">
               <a className="btn btn-blue" href={MAPS_HREF} target="_blank" rel="noreferrer">Itinéraire</a>
               <a className="btn btn-line" href={PHONE_HREF}>{PHONE}</a>
-              <a className="btn btn-line" href={`mailto:${EMAIL}`}>{EMAIL}</a>
+              <a className="btn btn-line" href={`mailto:${EMAIL}`}>Écrire au club</a>
             </div>
-          </section>
-        </div>
+          </div>
+        </section>
         <div className="block" />
         <CallBand title="Passez nous voir" text="Ouvert tous les jours de 6 h à minuit." />
       </main>
