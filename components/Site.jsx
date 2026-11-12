@@ -62,7 +62,7 @@ export function Header({ overlay = false }) {
       </header>
       <nav className="tabbar" aria-label="Accès rapide">
         {TABS.map(({ href, label, Icon, main }) => {
-          const on = pathname === href;
+          const on = pathname === href || (href === '/reserver' && pathname.startsWith('/reserver'));
           return (
             <Link key={href} href={href} className={`tab ${main ? 'tab-main' : ''} ${on ? 'is-on' : ''}`} aria-current={on ? 'page' : undefined}>
               <span className="tab-ico"><Icon size={main ? 26 : 24} strokeWidth={on || main ? 2.2 : 1.7} /></span>

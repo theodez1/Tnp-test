@@ -29,7 +29,7 @@ function AuthForm() {
     setBusy(true);
     try {
       mode === 'in' ? await signIn(f) : await signUp(f);
-      if (next === 'reserver') router.push('/reserver');
+      if (next) router.push(next.startsWith('/') ? next : '/reserver');
     } catch (err) { setError(err.message); }
     setBusy(false);
   }
@@ -37,7 +37,7 @@ function AuthForm() {
   return (
     <div className="auth">
       <h1>{mode === 'in' ? 'Se connecter' : 'Créer un compte'}</h1>
-      <p className="muted">{next === 'reserver' ? 'Connectez-vous pour confirmer votre créneau. Votre sélection est gardée.' : 'Réservez vos terrains et retrouvez vos parties au même endroit.'}</p>
+      <p className="muted">{next ? 'Connectez-vous pour confirmer votre créneau. Votre sélection est gardée.' : 'Réservez vos terrains et retrouvez vos parties au même endroit.'}</p>
       <div className="seg" role="tablist">
         <button role="tab" aria-selected={mode === 'in'} onClick={() => { setMode('in'); setError(''); }}>Se connecter</button>
         <button role="tab" aria-selected={mode === 'up'} onClick={() => { setMode('up'); setError(''); }}>Créer un compte</button>
@@ -54,7 +54,7 @@ function AuthForm() {
         {error && <p className="error" role="alert">{error}</p>}
         <button className="btn btn-blue btn-lg" disabled={busy}>{mode === 'in' ? 'Se connecter' : 'Créer mon compte'}</button>
       </form>
-      <button type="button" className="btn btn-line btn-lg demo-btn" onClick={() => { signInDemo(); if (next === 'reserver') router.push('/reserver'); }}>Essayer avec le compte démo</button>
+      <button type="button" className="btn btn-line btn-lg demo-btn" onClick={() => { signInDemo(); if (next) router.push(next.startsWith('/') ? next : '/reserver'); }}>Essayer avec le compte démo</button>
       <p className="note">Version de démonstration : les comptes et réservations sont enregistrés sur cet appareil uniquement.</p>
     </div>
   );

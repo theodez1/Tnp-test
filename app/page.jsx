@@ -3,14 +3,12 @@ import { ArrowRight } from 'lucide-react';
 import { Header, Footer, EventCard } from '../components/Site';
 import { PHONE, PHONE_HREF, ADDRESS, MAPS_HREF } from '../lib/info';
 import { upcoming } from '../lib/events';
-import { SPONSORS, SUPPLIERS } from '../lib/partners';
-import { PartnerStrip } from '../components/Partners';
 
 const TILES = [
-  { href: '/reserver', title: 'Jouer', sub: '& Réserver', image: '/images/academie.webp' },
-  { href: '/tournois', title: 'Tournois', sub: '& Événements', image: '/images/tournois.webp' },
-  { href: '/academie', title: 'Académie', sub: 'Cours & Stages', image: '/images/jouer.webp' },
-  { href: '/courts-filmes', title: 'Courts filmés', sub: 'Matchs & Replays', image: '/images/courts-filmes.webp' },
+  { href: '/reserver', title: 'Jouer', sub: '9 terrains indoor', tag: 'dès 9 €', image: '/images/academie.webp' },
+  { href: '/tournois', title: 'Tournois', sub: 'Homologués FFT', tag: 'P25 → P1000', image: '/images/tournois.webp' },
+  { href: '/academie', title: 'Académie', sub: '3 coachs diplômés', tag: 'dès 5 ans', image: '/images/jouer.webp' },
+  { href: '/courts-filmes', title: 'Courts filmés', sub: 'Vidéo et stats', tag: '+1 €', image: '/images/courts-filmes.webp' },
 ];
 
 
@@ -26,27 +24,15 @@ export default function Home() {
           <img src="/images/hero-padel.webp" alt="Terrains de padel indoor éclairés, vus depuis l'allée vitrée" className="hero-img" />
           <div className="wrap hero-txt">
             <h1>Toulouse Nord Padel</h1>
-            <p className="hero-sub">Plus qu'un club de padel. Un lieu de vie.</p>
-            <ul className="stats">
-              <li><strong>9 terrains</strong><span>8 doubles et 1 single</span></li>
-              <li><strong>Jusqu'à minuit</strong><span>7 j/7, dès 6 h</span></li>
-              <li><strong>Dès 9 €</strong><span>le créneau</span></li>
-              <li><strong>Bar</strong><span>9 h – 22 h 30</span></li>
-            </ul>
+            <p className="hero-sub">Ouvert 7j/7 de 6 h à minuit · Saint-Jory</p>
           </div>
         </section>
-
-        <ul className="wrap stats-bar" aria-label="Infos pratiques">
-          <li><strong>9</strong><span>terrains indoor</span></li>
-          <li><strong>7j/7</strong><span>6 h – minuit</span></li>
-          <li><strong>9 €</strong><span>dès / créneau</span></li>
-          <li><strong>Bar</strong><span>9 h – 22 h 30</span></li>
-        </ul>
 
         <section className="wrap tiles" aria-label="Activités du club">
           {TILES.map((t) => (
             <Link key={t.href} href={t.href} className="tile">
               <img src={t.image} alt="" />
+              <span className="tile-tag">{t.tag}</span>
               <span className="tile-txt"><strong>{t.title}</strong><span>{t.sub}</span></span>
               <span className="round round-glass"><ArrowRight size={20} /></span>
             </Link>
@@ -63,11 +49,6 @@ export default function Home() {
           ) : (
             <p className="empty">Le prochain calendrier arrive bientôt. Appelez l'accueil pour connaître les dates.</p>
           )}
-        </section>
-
-        <section className="partners" aria-labelledby="pt-t">
-          <div className="wrap sect-head"><h2 id="pt-t">Ils soutiennent le club</h2><Link href="/le-game#partenaires" className="more">Voir tout <ArrowRight size={18} /></Link></div>
-          <PartnerStrip partners={[...SPONSORS, ...SUPPLIERS]} />
         </section>
 
         <section className="wrap sect visit" aria-labelledby="visit-t">
