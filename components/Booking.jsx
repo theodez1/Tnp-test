@@ -4,9 +4,9 @@ import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { Check, Video, User, Users } from 'lucide-react';
 import { useUser, addBooking, setPending, takePending } from '../lib/store';
-import { COURT_LIST, courtName } from '../lib/info';
+import { COURT_LIST, courtName, tierFor, CENTRAL_EXTRA, SINGLE_PRICE } from '../lib/info';
 
-const DURATIONS = [{ min: 60, label: '1 h' }, { min: 90, label: '1 h 30' }, { min: 120, label: '2 h' }];
+const DURATIONS = [{ min: 60, label: '1 h' }, { min: 90, label: '1 h 30' }];
 const durLabel = (m) => DURATIONS.find((d) => d.min === m).label;
 const iso = (d) => d.toISOString().slice(0, 10);
 const hhmm = (m) => `${String(Math.floor(m / 60)).padStart(2, '0')}:${String(m % 60).padStart(2, '0')}`;
@@ -28,6 +28,12 @@ function courtFree(date, start, duration, n) {
   return true;
 }
 
+// Tarifs réels du club (voir lib/info.js)
+function priceFor(court, t) {
+  if (court.type === 'simple') return SINGLE_PRICE;
+  return tierFor(toMin(t)).price + (court.filmed ? CENTRAL_EXTRA : 0);
+}
+
 // En double, pas de terrain 1v1. En simple, le terrain 1v1 et les terrains de double.
 function eligible(court, players, filmedOnly) {
   if (players === 4 && court.type === 'simple') return false;
@@ -40,8 +46,8 @@ export default function Booking() {
   const user = useUser();
   const days = useMemo(() => Array.from({ length: 14 }, (_, i) => { const d = new Date(); d.setDate(d.getDate() + i); return d; }), []);
   const [date, setDate] = useState(iso(days[0]));
-  const [duration, setDuration] = useState(90);
   const [players, setPlayers] = useState(4);
+  const duration = players === 2 ? 60 : 90; // créneaux du club : double 1 h 30, single 1 h
   const [filmedOnly, setFilmedOnly] = useState(false);
   const [pick, setPick] = useState(null); // { court, time }
   const [done, setDone] = useState(null);
@@ -49,7 +55,7 @@ export default function Booking() {
   useEffect(() => {
     if (!user) return;
     const p = takePending();
-    if (p) { setDate(p.date); setDuration(p.duration); setPlayers(p.players); setFilmedOnly(!!p.filmedOnly); setPick({ court: p.court, time: p.time }); }
+    if (p) { setDate(p.date); setPlayers(p.players); setFilmedOnly(!!p.filmedOnly); setPick({ court: p.court, time: p.time }); }
   }, [user]);
 
   const reset = (fn) => (v) => { fn(v); setPick(null); };
@@ -114,10 +120,6 @@ export default function Booking() {
         <button type="button" className={`chip ${players === 4 ? 'is-on' : ''}`} aria-pressed={players === 4} onClick={() => reset(setPlayers)(4)}><Users size={18} /> Double</button>
         <button type="button" className={`chip ${players === 2 ? 'is-on' : ''}`} aria-pressed={players === 2} onClick={() => reset(setPlayers)(2)}><User size={18} /> Simple 1v1</button>
         <span className="chip-sep" aria-hidden="true" />
-        {DURATIONS.map((d) => (
-          <button key={d.min} type="button" className={`chip ${duration === d.min ? 'is-on' : ''}`} aria-pressed={duration === d.min} onClick={() => reset(setDuration)(d.min)}>{d.label}</button>
-        ))}
-        <span className="chip-sep" aria-hidden="true" />
         <button type="button" className={`chip ${filmedOnly ? 'is-on' : ''}`} aria-pressed={filmedOnly} onClick={() => reset(setFilmedOnly)(!filmedOnly)}><Video size={18} /> Filmé</button>
       </div>
 
@@ -142,7 +144,7 @@ export default function Booking() {
                     {times.map((t) => {
                       const on = pick && pick.court === c.n && pick.time === t;
                       return (
-                        <button key={t} type="button" className={`time ${on ? 'is-on' : ''}`} aria-pressed={on} aria-label={`${courtName(c)} à ${t}`} onClick={() => setPick(on ? null : { court: c.n, time: t })}>{t}</button>
+                        <button key={t} type="button" className={`time ${on ? 'is-on' : ''}`} aria-pressed={on} aria-label={`${courtName(c)} à ${t}`} onClick={() => setPick(on ? null : { court: c.n, time: t })}><strong>{t}</strong><span>{priceFor(c, t)} €</span></button>
                       );
                     })}
                   </div>
@@ -159,7 +161,7 @@ export default function Booking() {
         <div className="bk-bar">
           <div>
             <strong>{courtName(selected)}</strong>
-            <span>{label(date)} · {pick.time.replace(':', ' h ')} · {durLabel(duration)}</span>
+            <span>{label(date)} · {pick.time.replace(':', ' h ')} · {durLabel(duration)} · {priceFor(selected, pick.time)} €</span>
           </div>
           <button className="btn btn-blue btn-lg" onClick={confirm}>
             {user === null ? 'Se connecter pour réserver' : 'Réserver'}

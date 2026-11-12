@@ -24,12 +24,12 @@ export default function Home() {
           <img src="/images/hero-padel.webp" alt="Terrains de padel indoor éclairés, vus depuis l'allée vitrée" className="hero-img" />
           <div className="wrap hero-txt">
             <h1>Toulouse Nord Padel</h1>
-            <p className="hero-sub">Club de padel indoor à Saint-Jory</p>
+            <p className="hero-sub">Plus qu'un club de padel. Un lieu de vie.</p>
             <ul className="stats">
-              <li><strong>9 terrains</strong><span>tous en indoor</span></li>
+              <li><strong>9 terrains</strong><span>8 doubles et 1 single</span></li>
               <li><strong>Jusqu'à minuit</strong><span>7 j/7, dès 6 h</span></li>
-              <li><strong>Gratuit</strong><span>parking sur place</span></li>
-              <li><strong>Club-house</strong><span>bar et détente</span></li>
+              <li><strong>Dès 9 €</strong><span>le créneau</span></li>
+              <li><strong>Bar</strong><span>9 h – 22 h 30</span></li>
             </ul>
           </div>
         </section>
@@ -37,8 +37,8 @@ export default function Home() {
         <ul className="wrap stats-bar" aria-label="Infos pratiques">
           <li><strong>9</strong><span>terrains indoor</span></li>
           <li><strong>7j/7</strong><span>6 h – minuit</span></li>
-          <li><strong>0 €</strong><span>parking</span></li>
-          <li><strong>Bar</strong><span>club-house</span></li>
+          <li><strong>9 €</strong><span>dès / créneau</span></li>
+          <li><strong>Bar</strong><span>9 h – 22 h 30</span></li>
         </ul>
 
         <section className="wrap tiles" aria-label="Activités du club">
@@ -70,7 +70,7 @@ export default function Home() {
           <div>
             <h2 id="visit-t">Venir au club</h2>
             <p className="visit-big">{ADDRESS[0]}<br />{ADDRESS[1]}</p>
-            <p className="muted">Au nord de Toulouse. Parking gratuit devant le club, ouvert tous les jours de 6 h à minuit.</p>
+            <p className="muted">Accès direct par l'A62. Parking gratuit avec bornes de recharge, ouvert tous les jours de 6 h à minuit.</p>
             <div className="row">
               <a className="btn btn-blue" href={MAPS_HREF} target="_blank" rel="noreferrer">Itinéraire</a>
               <a className="btn btn-line" href={PHONE_HREF}>{PHONE}</a>

@@ -1,4 +1,5 @@
 import { Header, Footer, PageHero, CallBand } from '../../components/Site';
+import { PRICE_TIERS, CENTRAL_EXTRA } from '../../lib/info';
 
 export const metadata = { title: 'Courts filmés | Toulouse Nord Padel' };
 
@@ -9,7 +10,7 @@ export default function CourtsFilmes() {
       <main>
         <PageHero
           title="Courts filmés"
-          lead="Deux terrains sont équipés de caméras Spash. Jouez, puis revoyez vos échanges."
+          lead="Les courts centraux enregistrent la vidéo de votre match et vos statistiques en temps réel."
           image="/images/courts-filmes.webp"
           alt="Terrain vu à travers la vitre, sous la verrière"
         />
@@ -17,17 +18,18 @@ export default function CourtsFilmes() {
           <div className="prose">
             <h2>Comment ça marche</h2>
             <ol className="flow">
-              <li><strong>Réservez un terrain filmé</strong> : activez le filtre « Filmé » sur la page de réservation.</li>
-              <li><strong>Jouez votre match</strong> normalement, sans rien installer.</li>
-              <li><strong>Récupérez vos vidéos</strong> selon les modalités indiquées par l'accueil.</li>
+              <li><strong>Réservez un court central.</strong> Sur la page Réserver, activez le filtre « Filmé ».</li>
+              <li><strong>Jouez votre match</strong> normalement, il n'y a rien à installer.</li>
+              <li><strong>Revoyez vos points</strong> et vos statistiques après la partie.</li>
             </ol>
           </div>
           <aside className="side">
-            <p className="side-h">À quoi ça sert</p>
-            <p>Partager un point gagnant, bien sûr. Mais aussi voir votre placement, comprendre vos fautes et suivre vos progrès d'un match à l'autre.</p>
+            <p className="side-h">Prix</p>
+            <p className="side-big">+{CENTRAL_EXTRA} € le créneau</p>
+            <p>Soit de {PRICE_TIERS[0].price + CENTRAL_EXTRA} € à {PRICE_TIERS[2].price + CENTRAL_EXTRA} € selon l'heure.</p>
           </aside>
         </section>
-        <CallBand title="Réserver un court filmé" text="Deux terrains sont équipés Spash. Choisissez-les directement au moment de réserver." />
+        <CallBand title="Réserver un court filmé" text="Choisissez un court central au moment de réserver." />
       </main>
       <Footer />
     </>

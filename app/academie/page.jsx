@@ -1,6 +1,13 @@
+import Link from 'next/link';
 import { Header, Footer, PageHero, CallBand } from '../../components/Site';
 
 export const metadata = { title: 'Académie | Toulouse Nord Padel' };
+
+const COACHES = [
+  { name: 'Yannick', bio: 'Ancien joueur de tennis professionnel (590e mondial, top 40 français), diplômé TFP Padel.' },
+  { name: 'Erwan Corbon', bio: '29 ans, ancien 104e joueur français de padel.' },
+  { name: 'Paul', bio: 'Coach diplômé, cours collectifs et particuliers.' },
+];
 
 export default function Academie() {
   return (
@@ -9,24 +16,38 @@ export default function Academie() {
       <main>
         <PageHero
           title="L'académie"
-          lead="Des cours pour apprendre le padel ou pour passer un cap, à votre rythme."
+          lead="Trois coachs diplômés, des cours pour tous les niveaux et une école de padel dès 5 ans."
           image="/images/academie.webp"
           alt="Raquette de padel et balle posées sur le gazon synthétique"
         />
-        <section className="wrap prose-grid">
-          <div className="prose">
-            <h2>Pour qui</h2>
-            <dl className="defs">
-              <div><dt>Vous débutez</dt><dd>La prise de raquette, le service, le jeu avec les vitres : les bases pour tenir l'échange dès les premières séances.</dd></div>
-              <div><dt>Vous jouez déjà</dt><dd>Placement, régularité, coups au-dessus de la tête : on travaille ce qui vous fait perdre des points.</dd></div>
-              <div><dt>En groupe ou seul</dt><dd>Cours collectifs, cours particuliers et stages pendant les vacances, selon les disponibilités.</dd></div>
-            </dl>
-          </div>
-          <aside className="side">
-            <p className="side-h">Formules et horaires</p>
-            <p>L'accueil vous présente les formules en cours, les niveaux et les créneaux encore ouverts.</p>
-          </aside>
-        </section>
+        <div className="wrap">
+          <section className="block">
+            <h2>Les coachs</h2>
+            <div className="coaches">
+              {COACHES.map((c) => (
+                <div key={c.name} className="coach">
+                  <span className="coach-ini">{c.name[0]}</span>
+                  <h3>{c.name}</h3>
+                  <p>{c.bio}</p>
+                </div>
+              ))}
+            </div>
+          </section>
+
+          <section className="block">
+            <h2>Les formules</h2>
+            <ul className="rows">
+              <li><div><strong>Cours collectifs adultes</strong><br /><span>25 séances de 1 h 30, tous niveaux, cours femmes et mixtes</span></div><b>525 €</b></li>
+              <li><div><strong>École jeunes 11 – 17 ans</strong><br /><span>25 séances de 1 h 30</span></div><b>470 €</b></li>
+              <li><div><strong>École Pitchouns 5 – 10 ans</strong><br /><span>25 séances de 1 h</span></div><b>275 €</b></li>
+              <li><div><strong>Cours particulier</strong><br /><span>1 h seul avec un coach</span></div><b>45 €</b></li>
+              <li><div><strong>Cours en duo</strong><br /><span>1 h à deux</span></div><b>60 €</b></li>
+              <li><div><strong>Stages vacances</strong><br /><span>Journée ou demi-journée, enfants et adultes</span></div><b>Sur devis</b></li>
+            </ul>
+            <p className="block-note">Aussi : préparation au championnat par équipes. <Link href="/tarifs">Tous les tarifs</Link></p>
+          </section>
+        </div>
+        <div className="block" />
         <CallBand phoneOnly title="Réserver un premier cours" text="Dites-nous votre niveau, on vous oriente vers le bon groupe." />
       </main>
       <Footer />

@@ -10,7 +10,7 @@ export default function Tournois() {
       <main className="wrap page">
         <div className="page-head">
           <h1>Tournois et animations</h1>
-          <p className="muted">Tournois homologués, soirées américano et rencontres du club. Choisissez un jour pour voir le détail.</p>
+          <p className="muted">Tournois homologués FFT de P25 à P1000, montées-descentes, américanos et tournois jeunes. Choisissez un jour pour voir le détail.</p>
         </div>
         <Agenda />
       </main>

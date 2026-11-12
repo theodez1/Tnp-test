@@ -5,13 +5,14 @@ import { useEffect, useState } from 'react';
 import { House, Trophy, CalendarDays, PlaySquare, Landmark, UserRound, ArrowRight, Users, X } from 'lucide-react';
 import { useUser } from '../lib/store';
 
-import { PHONE, PHONE_HREF, ADDRESS, MAPS_HREF } from '../lib/info';
+import { PHONE, PHONE_HREF, ADDRESS, MAPS_HREF, EMAIL } from '../lib/info';
 
 const NAV = [
   { href: '/reserver', label: 'Jouer' },
   { href: '/tournois', label: 'Tournois' },
   { href: '/academie', label: 'Académie' },
   { href: '/courts-filmes', label: 'Courts filmés' },
+  { href: '/tarifs', label: 'Tarifs' },
   { href: '/le-game', label: 'Le club' },
 ];
 
@@ -86,11 +87,11 @@ export function Footer() {
         </div>
         <div>
           <p className="ftr-h">Horaires</p>
-          <p>Tous les jours<br />6 h – minuit</p>
+          <p>Club : tous les jours, 6 h – minuit<br />Bar : 9 h – 22 h 30</p>
         </div>
         <div>
           <p className="ftr-h">Contact</p>
-          <p><a href={PHONE_HREF}>{PHONE}</a></p>
+          <p><a href={PHONE_HREF}>{PHONE}</a><br /><a href={`mailto:${EMAIL}`}>{EMAIL}</a></p>
           <p><Link href="/compte">Mon compte</Link></p>
         </div>
         <nav className="ftr-nav" aria-label="Pied de page">

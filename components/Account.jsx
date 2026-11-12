@@ -3,7 +3,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { CalendarDays } from 'lucide-react';
-import { useUser, useBookings, signIn, signUp, signOut, cancelBooking } from '../lib/store';
+import { useUser, useBookings, signIn, signUp, signOut, cancelBooking, signInDemo } from '../lib/store';
 
 const longDate = (d) => new Date(d + 'T12:00:00').toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long' });
 const dur = (m) => (m === 60 ? '1 h' : m === 90 ? '1 h 30' : '2 h');
@@ -54,6 +54,7 @@ function AuthForm() {
         {error && <p className="error" role="alert">{error}</p>}
         <button className="btn btn-blue btn-lg" disabled={busy}>{mode === 'in' ? 'Se connecter' : 'Créer mon compte'}</button>
       </form>
+      <button type="button" className="btn btn-line btn-lg demo-btn" onClick={() => { signInDemo(); if (next === 'reserver') router.push('/reserver'); }}>Essayer avec le compte démo</button>
       <p className="note">Version de démonstration : les comptes et réservations sont enregistrés sur cet appareil uniquement.</p>
     </div>
   );
