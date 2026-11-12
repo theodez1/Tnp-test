@@ -1,3 +1,17 @@
+import { Archivo } from 'next/font/google';
 import './globals.css';
-export const metadata={title:'Toulouse Nord Padel | Saint-Jory',description:'Votre club de padel indoor à Saint-Jory. Terrains, réservation et expérience de jeu.'};
-export default function RootLayout({children}){return <html lang="fr"><body>{children}</body></html>}
+
+const archivo = Archivo({ subsets: ['latin'], axes: ['wdth'], variable: '--font-archivo', display: 'swap' });
+
+export const metadata = {
+  title: 'Toulouse Nord Padel | Club de padel indoor à Saint-Jory',
+  description: 'Neuf terrains de padel indoor à Saint-Jory, ouverts de 6 h à minuit, tous les jours. Réservation, tournois, cours et courts filmés.',
+};
+
+export default function RootLayout({ children }) {
+  return (
+    <html lang="fr" className={archivo.variable}>
+      <body>{children}</body>
+    </html>
+  );
+}

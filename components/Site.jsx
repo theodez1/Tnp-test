@@ -1,10 +1,121 @@
 'use client';
 import Link from 'next/link';
-import {usePathname} from 'next/navigation';
-import {House,Trophy,CalendarDays,PlaySquare,MapPin,Menu,UserRound,Clock3,ParkingSquare,ChevronRight,GraduationCap,ArrowUpRight, X} from 'lucide-react';
-import {useState} from 'react';
-const tabs=[{href:'/',label:'Accueil',Icon:House},{href:'/tournois',label:'Tournois',Icon:Trophy},{href:'/reserver',label:'Réserver',Icon:CalendarDays},{href:'/courts-filmes',label:'Vidéos',Icon:PlaySquare},{href:'/le-game',label:'Le club',Icon:MapPin}];
-export function Header(){const [menu,setMenu]=useState(false);const pathname=usePathname();return <><header className="tnp-header"><div className="container tnp-header-inner"><Link className="tnp-logo" href="/" aria-label="Toulouse Nord Padel, accueil"><span className="tnp-mark">TNP<span className="tnp-slash">›</span></span><span className="tnp-logo-name">TOULOUSE<br/>NORD PADEL</span></Link><nav className="tnp-desktop-links"><Link href="/reserver">Jouer</Link><Link href="/tournois">Tournois</Link><Link href="/academie">Académie</Link><Link href="/courts-filmes">Courts filmés</Link><Link href="/le-game">Le club</Link></nav><div className="tnp-header-actions"><a href="tel:+33532002391" className="tnp-header-phone">05 32 00 23 91</a><button className="tnp-icon-btn" aria-label="Ouvrir le menu" onClick={()=>setMenu(!menu)}>{menu?<X size={23}/>:<Menu size={23}/>}</button></div></div></header>{menu&&<div className="tnp-menu-overlay"><nav>{[{href:'/',label:'Accueil'},...tabs.slice(1).map(t=>({href:t.href,label:t.label})),{href:'/academie',label:'Académie'}].map(t=><Link key={t.href} onClick={()=>setMenu(false)} href={t.href}>{t.label}<ChevronRight size={19}/></Link>)}</nav><p>Saint-Jory · 05 32 00 23 91</p></div>}<nav className="tnp-tabbar" aria-label="Navigation principale">{tabs.map(({href,label,Icon})=><Link href={href} key={href} className={`tnp-tab ${pathname===href?'is-active':''} ${href==='/reserver'?'tnp-tab-book':''}`}><span className="tnp-tab-icon"><Icon size={23} strokeWidth={pathname===href?2.5:1.9}/></span><span>{label}</span></Link>)}</nav></>}
-export function Footer(){return <footer className="tnp-footer"><div className="container tnp-footer-grid"><div><strong>TNP<span style={{color:'#62baff'}}>.</span></strong><p>Le padel à Toulouse Nord.<br/>5 impasse Novital, 31790 Saint-Jory.</p></div><div><h3>Le club</h3><Link href="/reserver">Jouer</Link><Link href="/tournois">Tournois</Link><Link href="/academie">Académie</Link></div><div><h3>Informations</h3><Link href="/courts-filmes">Courts filmés</Link><Link href="/le-game">Le club</Link><a href="tel:+33532002391">05 32 00 23 91</a></div></div><div className="container tnp-copyright">© {new Date().getFullYear()} Toulouse Nord Padel · Concept de site</div></footer>}
-export function PageHero({eyebrow,title,description}){return <section className="tnp-page-hero"><div className="container"><span className="tnp-kicker">{eyebrow}</span><h1>{title}</h1><p>{description}</p></div></section>}
-export function Feature({image,title,desc,href,link}){return <Link href={href} className="tnp-feature-card" style={{backgroundImage:`linear-gradient(0deg,rgba(4,22,43,.94),rgba(4,22,43,.05) 75%),url("${image}")`}}><span><strong>{title}</strong><small>{desc}</small></span><span className="tnp-card-arrow"><ArrowUpRight size={20}/></span></Link>}
+import { usePathname } from 'next/navigation';
+import { useState } from 'react';
+
+export const PHONE = '05 32 00 23 91';
+export const PHONE_HREF = 'tel:+33532002391';
+export const ADDRESS = ['5 impasse Novital', '31790 Saint-Jory'];
+export const MAPS_HREF = 'https://www.google.com/maps/search/?api=1&query=5+impasse+Novital+31790+Saint-Jory';
+
+const NAV = [
+  { href: '/reserver', label: 'Jouer' },
+  { href: '/tournois', label: 'Tournois' },
+  { href: '/academie', label: 'Académie' },
+  { href: '/courts-filmes', label: 'Courts filmés' },
+  { href: '/le-game', label: 'Le club' },
+];
+
+export function Header() {
+  const [open, setOpen] = useState(false);
+  const pathname = usePathname();
+  return (
+    <header className="hdr">
+      <div className="wrap hdr-in">
+        <Link href="/" className="brand" aria-label="Toulouse Nord Padel, accueil">
+          <CourtMark />
+          <span>Toulouse Nord<br />Padel</span>
+        </Link>
+        <nav className={`nav ${open ? 'is-open' : ''}`} aria-label="Navigation principale">
+          {NAV.map((l) => (
+            <Link key={l.href} href={l.href} aria-current={pathname === l.href ? 'page' : undefined} onClick={() => setOpen(false)}>
+              {l.label}
+            </Link>
+          ))}
+          <a className="nav-phone" href={PHONE_HREF}>Appeler le {PHONE}</a>
+        </nav>
+        <a className="btn btn-ball hdr-cta" href={PHONE_HREF}>Réserver</a>
+        <button className="burger" aria-expanded={open} aria-label={open ? 'Fermer le menu' : 'Ouvrir le menu'} onClick={() => setOpen(!open)}>
+          <span /><span />
+        </button>
+      </div>
+    </header>
+  );
+}
+
+export function Footer() {
+  return (
+    <footer className="ftr">
+      <div className="wrap ftr-grid">
+        <div>
+          <p className="ftr-name">Toulouse Nord Padel</p>
+          <p>{ADDRESS[0]}<br />{ADDRESS[1]}</p>
+          <p><a href={MAPS_HREF} target="_blank" rel="noreferrer">Voir l'itinéraire</a></p>
+        </div>
+        <div>
+          <p className="ftr-h">Horaires</p>
+          <p>Tous les jours<br />6 h – minuit</p>
+        </div>
+        <div>
+          <p className="ftr-h">Contact</p>
+          <p><a href={PHONE_HREF}>{PHONE}</a></p>
+        </div>
+        <nav className="ftr-nav" aria-label="Pied de page">
+          {NAV.map((l) => <Link key={l.href} href={l.href}>{l.label}</Link>)}
+        </nav>
+      </div>
+      <div className="wrap ftr-legal">© {new Date().getFullYear()} Toulouse Nord Padel</div>
+    </footer>
+  );
+}
+
+export function PageHero({ title, lead, image, alt }) {
+  return (
+    <section className="phero">
+      <img src={image} alt={alt} className="phero-img" />
+      <div className="wrap phero-txt">
+        <h1>{title}</h1>
+        <p>{lead}</p>
+      </div>
+    </section>
+  );
+}
+
+export function CallBand({ title, text }) {
+  return (
+    <section className="band">
+      <div className="wrap band-in">
+        <div>
+          <h2>{title}</h2>
+          <p>{text}</p>
+        </div>
+        <a className="btn btn-ball btn-lg" href={PHONE_HREF}>Appeler le {PHONE}</a>
+      </div>
+    </section>
+  );
+}
+
+/* Plan d'un terrain de padel (20 × 10 m) : murs, filet, lignes de service. */
+export function Court({ className = '' }) {
+  return (
+    <svg className={`court ${className}`} viewBox="0 0 100 200" aria-hidden="true">
+      <rect x="1.5" y="1.5" width="97" height="197" rx="2" />
+      <line x1="1.5" y1="100" x2="98.5" y2="100" className="net" />
+      <line x1="1.5" y1="30" x2="98.5" y2="30" />
+      <line x1="1.5" y1="170" x2="98.5" y2="170" />
+      <line x1="50" y1="30" x2="50" y2="170" />
+    </svg>
+  );
+}
+
+function CourtMark() {
+  return (
+    <svg className="brand-mark" viewBox="0 0 24 40" aria-hidden="true">
+      <rect x="1" y="1" width="22" height="38" rx="1.5" />
+      <line x1="1" y1="20" x2="23" y2="20" />
+      <line x1="1" y1="7" x2="23" y2="7" />
+      <line x1="1" y1="33" x2="23" y2="33" />
+      <line x1="12" y1="7" x2="12" y2="33" />
+    </svg>
+  );
+}

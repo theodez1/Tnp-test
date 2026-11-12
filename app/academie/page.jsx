@@ -1,1 +1,35 @@
-import Link from 'next/link';import {Header,Footer,PageHero} from '../../components/Site';export const metadata={title:'Académie | Toulouse Nord Padel'};export default function Academie(){return <><Header/><main><PageHero eyebrow="Cours & progression" title={<>L'<span className="accent">ACADÉMIE.</span></>} description="Découvrez les cours, les stages et les possibilités de progression au Toulouse Nord Padel."/><section className="section"><div className="container split"><div><div className="eyebrow">Jouer mieux, jouer plus</div><h2>VOTRE JEU.<br/>VOTRE RYTHME.</h2><p className="muted">Vous découvrez le padel ou vous souhaitez perfectionner votre technique ? Contactez le club pour connaître les formules, les niveaux et les disponibilités des cours.</p><a className="btn" href="tel:+33532002391">Contacter l'académie ↗</a></div><div className="photo" style={{backgroundImage:"url('https://images.unsplash.com/photo-1595435934249-5df7ed86e1c0?auto=format&fit=crop&w=1000&q=85')"}}/></div></section><section className="section dark"><div className="container"><h2>PROGRESSER<br/><span className="accent">ENSEMBLE.</span></h2><div className="steps"><div className="step"><strong>01</strong><h3>Découvrir</h3><p className="muted">Apprenez les fondamentaux du padel.</p></div><div className="step"><strong>02</strong><h3>Pratiquer</h3><p className="muted">Travaillez votre régularité et votre placement.</p></div><div className="step"><strong>03</strong><h3>Évoluer</h3><p className="muted">Développez votre jeu à votre rythme.</p></div></div></div></section></main><Footer/></>}
+import { Header, Footer, PageHero, CallBand } from '../../components/Site';
+
+export const metadata = { title: 'Académie | Toulouse Nord Padel' };
+
+export default function Academie() {
+  return (
+    <>
+      <Header />
+      <main>
+        <PageHero
+          title="L'académie"
+          lead="Des cours pour apprendre le padel ou pour passer un cap, à votre rythme."
+          image="/images/academie.webp"
+          alt="Raquette de padel et balle posées sur le gazon synthétique"
+        />
+        <section className="wrap prose-grid">
+          <div className="prose">
+            <h2>Pour qui</h2>
+            <dl className="defs">
+              <div><dt>Vous débutez</dt><dd>La prise de raquette, le service, le jeu avec les vitres : les bases pour tenir l'échange dès les premières séances.</dd></div>
+              <div><dt>Vous jouez déjà</dt><dd>Placement, régularité, coups au-dessus de la tête : on travaille ce qui vous fait perdre des points.</dd></div>
+              <div><dt>En groupe ou seul</dt><dd>Cours collectifs, cours particuliers et stages pendant les vacances, selon les disponibilités.</dd></div>
+            </dl>
+          </div>
+          <aside className="side">
+            <p className="side-h">Formules et horaires</p>
+            <p>L'accueil vous présente les formules en cours, les niveaux et les créneaux encore ouverts.</p>
+          </aside>
+        </section>
+        <CallBand title="Réserver un premier cours" text="Dites-nous votre niveau, on vous oriente vers le bon groupe." />
+      </main>
+      <Footer />
+    </>
+  );
+}
