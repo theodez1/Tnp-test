@@ -27,9 +27,17 @@ export function Header({ overlay = false }) {
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
   const user = useUser();
+  const [scrolled, setScrolled] = useState(false);
+  useEffect(() => {
+    if (!overlay) return;
+    const on = () => setScrolled(window.scrollY > 40);
+    on();
+    window.addEventListener('scroll', on, { passive: true });
+    return () => window.removeEventListener('scroll', on);
+  }, [overlay]);
   return (
     <>
-      <header className={`hdr ${overlay ? 'hdr-overlay' : ''} ${open ? 'is-open' : ''}`}>
+      <header className={`hdr ${overlay ? 'hdr-overlay' : ''} ${scrolled ? 'is-solid' : ''} ${open ? 'is-open' : ''}`}>
         <div className="wrap hdr-in">
           <Link href="/" className="brand" aria-label="Toulouse Nord Padel, accueil">
             <img src="/images/logo-tnp.png" alt="" width="1840" height="300" />

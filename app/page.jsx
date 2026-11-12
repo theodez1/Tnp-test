@@ -34,6 +34,13 @@ export default function Home() {
           </div>
         </section>
 
+        <ul className="wrap stats-bar" aria-label="Infos pratiques">
+          <li><strong>9</strong><span>terrains indoor</span></li>
+          <li><strong>7j/7</strong><span>6 h – minuit</span></li>
+          <li><strong>0 €</strong><span>parking</span></li>
+          <li><strong>Bar</strong><span>club-house</span></li>
+        </ul>
+
         <section className="wrap tiles" aria-label="Activités du club">
           {TILES.map((t) => (
             <Link key={t.href} href={t.href} className="tile">
