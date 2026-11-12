@@ -60,7 +60,6 @@ export function Header({ overlay = false }) {
           </button>
         </div>
       </header>
-      {!['/reserver', '/compte'].includes(pathname) && <BookNudge />}
       <nav className="tabbar" aria-label="Accès rapide">
         {TABS.map(({ href, label, Icon, main }) => {
           const on = pathname === href;
@@ -149,30 +148,5 @@ export function EventCard({ event }) {
       </span>
       <span className="round"><ArrowRight size={20} /></span>
     </Link>
-  );
-}
-
-/* Encart « Réserver » en bas à droite, sur ordinateur uniquement */
-function BookNudge() {
-  const [show, setShow] = useState(false);
-  useEffect(() => {
-    let closed = false;
-    try { closed = sessionStorage.getItem('tnp.nudge') === 'closed'; } catch {}
-    if (closed) return;
-    const t = setTimeout(() => setShow(true), 2500);
-    return () => clearTimeout(t);
-  }, []);
-  if (!show) return null;
-  const close = () => { setShow(false); try { sessionStorage.setItem('tnp.nudge', 'closed'); } catch {} };
-  return (
-    <aside className="nudge" aria-label="Réserver un terrain">
-      <button type="button" className="nudge-x" onClick={close} aria-label="Fermer"><X size={16} /></button>
-      <img src="/images/jouer.webp" alt="" />
-      <div>
-        <p className="nudge-t">Un terrain ce soir ?</p>
-        <p className="nudge-s">9 terrains, de 6 h à minuit.</p>
-        <Link href="/reserver" className="btn btn-blue nudge-b" onClick={close}>Réserver</Link>
-      </div>
-    </aside>
   );
 }

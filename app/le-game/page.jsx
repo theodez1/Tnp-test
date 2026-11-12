@@ -1,4 +1,6 @@
 import { Header, Footer, PageHero, CallBand } from '../../components/Site';
+import { SPONSORS, SUPPLIERS } from '../../lib/partners';
+import { PartnerGrid } from '../../components/Partners';
 import { ADDRESS, MAPS_HREF, EMAIL, PHONE, PHONE_HREF } from '../../lib/info';
 
 export const metadata = { title: 'Le club | Toulouse Nord Padel' };
@@ -36,6 +38,13 @@ export default function LeClub() {
               <div className="menu-item"><h3>Glaces</h3><p>Glaces artisanales La Prairie des Glaces.</p></div>
               <div className="menu-item"><h3>En famille</h3><p>Menu enfant, petit-déjeuner dès 9 h.</p></div>
             </div>
+          </section>
+
+          <section className="block" id="partenaires">
+            <h2>Partenaires</h2>
+            <PartnerGrid partners={SPONSORS} cta />
+            <h3 className="block-sub">Au bar</h3>
+            <PartnerGrid partners={SUPPLIERS} />
           </section>
 
           <section className="block">

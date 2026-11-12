@@ -9,6 +9,8 @@ export const metadata = {
   description: 'Neuf terrains de padel indoor à Saint-Jory, ouverts de 6 h à minuit, tous les jours. Réservation, tournois, cours et courts filmés.',
 };
 
+export const viewport = { themeColor: '#0a1a3a' };
+
 export default function RootLayout({ children }) {
   return (
     <html lang="fr" className={`${display.variable} ${body.variable}`}>

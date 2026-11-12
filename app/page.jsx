@@ -3,6 +3,8 @@ import { ArrowRight } from 'lucide-react';
 import { Header, Footer, EventCard } from '../components/Site';
 import { PHONE, PHONE_HREF, ADDRESS, MAPS_HREF } from '../lib/info';
 import { upcoming } from '../lib/events';
+import { SPONSORS, SUPPLIERS } from '../lib/partners';
+import { PartnerStrip } from '../components/Partners';
 
 const TILES = [
   { href: '/reserver', title: 'Jouer', sub: '& Réserver', image: '/images/academie.webp' },
@@ -61,6 +63,11 @@ export default function Home() {
           ) : (
             <p className="empty">Le prochain calendrier arrive bientôt. Appelez l'accueil pour connaître les dates.</p>
           )}
+        </section>
+
+        <section className="partners" aria-labelledby="pt-t">
+          <div className="wrap sect-head"><h2 id="pt-t">Ils soutiennent le club</h2><Link href="/le-game#partenaires" className="more">Voir tout <ArrowRight size={18} /></Link></div>
+          <PartnerStrip partners={[...SPONSORS, ...SUPPLIERS]} />
         </section>
 
         <section className="wrap sect visit" aria-labelledby="visit-t">
