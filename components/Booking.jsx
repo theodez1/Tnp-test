@@ -34,7 +34,9 @@ export function priceFor(court, t) {
 
 // En double, pas de terrain 1v1. En simple, le terrain 1v1 et les terrains de double.
 function eligible(court, players, filmedOnly) {
+  // Double : terrains de double. Simple : uniquement le terrain single (non filmé).
   if (players === 4 && court.type === 'simple') return false;
+  if (players === 2 && court.type !== 'simple') return false;
   if (filmedOnly && !court.filmed) return false;
   return true;
 }
@@ -84,6 +86,10 @@ export default function Booking() {
         <span className="chip-sep" aria-hidden="true" />
         <button type="button" className={`chip ${filmedOnly ? 'is-on' : ''}`} aria-pressed={filmedOnly} onClick={() => reset(setFilmedOnly)(!filmedOnly)}><Video size={18} /> Filmé</button>
       </div>
+
+      {courts.length === 0 && (
+        <p className="empty">Aucun terrain ne correspond : le terrain single n'est pas filmé. <button type="button" className="link-btn" onClick={() => setFilmedOnly(false)}>Retirer le filtre Filmé</button></p>
+      )}
 
       <div className="court-list">
         {courts.map((c) => {

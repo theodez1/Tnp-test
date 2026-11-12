@@ -488,3 +488,7 @@ p { margin: 0 0 1em; }
   .tiles { margin-top: -56px; }
   .tile > .tile-tag { top: 10px; left: 14px; font-size: .74rem; padding: 3px 9px; }
 }
+@media (min-width: 701px) {
+  .hero { min-height: 0; }
+  .hero-txt { padding-top: clamp(150px, 22vh, 220px); padding-bottom: 130px; }
+}
