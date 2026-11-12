@@ -60,7 +60,7 @@ p { margin: 0 0 1em; }
 
 /* En-tête */
 .hdr { position: sticky; top: 0; z-index: 30; background: var(--navy); color: #fff; }
-.hdr-overlay { position: fixed; left: 0; right: 0; background: linear-gradient(180deg, rgba(10,26,58,.95) 0%, rgba(10,26,58,.75) 55%, rgba(10,26,58,0) 100%); padding-bottom: 28px; }
+.hdr-overlay { position: fixed; left: 0; right: 0; background: var(--navy); }
 .hdr-overlay .nav a { color: #fff; text-shadow: 0 1px 8px rgba(10,26,58,.9); }
 .hdr-overlay.is-open { background: var(--navy); }
 .hdr-in { display: flex; align-items: center; gap: 24px; height: 76px; }
