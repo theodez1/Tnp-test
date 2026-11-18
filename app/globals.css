@@ -540,8 +540,9 @@ p { margin: 0 0 1em; }
 
 /* À la souris on ne peut pas glisser une liste sur le côté : les horaires et les jours restent tous visibles, sur plusieurs lignes.
    Au doigt, la liste garde son défilement latéral. */
+/* Les horaires passent toujours à la ligne, au doigt comme à la souris. */
+.times { flex-wrap: wrap; overflow: visible; padding-bottom: 0; }
 @media (hover: hover) and (pointer: fine), (min-width: 700px) {
-  .times { flex-wrap: wrap; overflow: visible; padding-bottom: 0; }
   .chips-scroll { flex-wrap: wrap; overflow: visible; margin: 0; padding-left: 0; padding-right: 0; }
   .agenda > .chips { flex-wrap: wrap; overflow: visible; margin: 0; padding: 0; }
   .svc-strip { flex-wrap: wrap; overflow: visible; margin: 0; padding: 0; }
