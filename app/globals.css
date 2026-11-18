@@ -615,9 +615,21 @@ p { margin: 0 0 1em; }
 /* Accueil sur PC : le hero suit la hauteur de la fenêtre, les vignettes dépassent juste dessous. */
 @media (min-width: 901px) {
   .hero { min-height: clamp(440px, calc(100svh - 170px), 780px); }
-  .hero-txt { padding-top: clamp(96px, 14vh, 150px); padding-bottom: clamp(80px, 12vh, 130px); }
+  .hero-txt { padding-top: clamp(96px, 14vh, 150px); padding-bottom: clamp(132px, 15vh, 180px); }
   .h1-big { font-size: clamp(5rem, 19vh, 11rem); }
   .h1-small { font-size: clamp(1.6rem, 5.2vh, 3rem); }
   .hero-open { margin-bottom: 8px; }
   .hero-cta { margin-top: 16px; }
+}
+
+/* Tablette : l'écart entre les boutons et les vignettes (qui remontent de 64 px) reste d'au moins 44 px. */
+@media (min-width: 701px) and (max-width: 900px) {
+  .hero-txt { padding-bottom: 116px; }
+}
+@media (max-width: 700px) {
+  .hero-txt { padding-bottom: 104px; }
+}
+@media (max-width: 400px) {
+  .sect-head h2 { font-size: 1.35rem; white-space: normal; min-width: 0; }
+  .sect-head { gap: 10px; }
 }
