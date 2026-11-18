@@ -611,3 +611,12 @@ p { margin: 0 0 1em; }
   .confirm-list li { grid-template-columns: 24px 1fr; row-gap: 2px; }
   .confirm-list strong { grid-column: 2; text-align: left; }
 }
+
+/* Accueil sur PC : un hero bas, pour voir les vignettes sans défiler. */
+@media (min-width: 901px) {
+  .hero-txt { padding-top: 112px; padding-bottom: 96px; }
+  .h1-big { font-size: clamp(5rem, 11vw, 8.5rem); }
+  .h1-small { font-size: clamp(1.6rem, 3vw, 2.4rem); }
+  .hero-open { margin-bottom: 8px; }
+  .hero-cta { margin-top: 16px; }
+}
