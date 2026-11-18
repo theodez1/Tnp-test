@@ -615,7 +615,7 @@ p { margin: 0 0 1em; }
 /* Accueil sur PC : le hero suit la hauteur de la fenêtre, les vignettes dépassent juste dessous. */
 @media (min-width: 901px) {
   .hero { min-height: clamp(440px, calc(100svh - 170px), 780px); }
-  .hero-txt { padding-top: clamp(96px, 14vh, 150px); padding-bottom: clamp(132px, 15vh, 180px); }
+  .hero-txt { padding-top: clamp(84px, 11vh, 130px); padding-bottom: clamp(168px, 19vh, 220px); }
   .h1-big { font-size: clamp(5rem, 19vh, 11rem); }
   .h1-small { font-size: clamp(1.6rem, 5.2vh, 3rem); }
   .hero-open { margin-bottom: 8px; }
