@@ -546,3 +546,23 @@ p { margin: 0 0 1em; }
   .agenda > .chips { flex-wrap: wrap; overflow: visible; margin: 0; padding: 0; }
   .svc-strip { flex-wrap: wrap; overflow: visible; margin: 0; padding: 0; }
 }
+
+/* Barre du haut, à la souris : un trait incliné (comme la flèche du logo) se trace sous le lien survolé,
+   entre par la gauche et repart par la droite. La page courante garde son trait. */
+@media (hover: hover) and (pointer: fine) {
+  .nav:not(.is-open) a { position: relative; transition: color .2s ease, transform .2s ease; }
+  .nav:not(.is-open) a:hover, .nav:not(.is-open) a:focus-visible { transform: translateY(-1px); }
+  .nav:not(.is-open) a[aria-current="page"] { box-shadow: none; }
+  .nav:not(.is-open) a::after {
+    content: ''; position: absolute; left: 12px; right: 12px; bottom: 2px; height: 3px; border-radius: 2px; background: var(--sky);
+    transform: skewX(-18deg) scaleX(0); transform-origin: right center;
+    transition: transform .3s cubic-bezier(.3, .7, .2, 1);
+  }
+  .nav:not(.is-open) a:hover::after, .nav:not(.is-open) a:focus-visible::after, .nav:not(.is-open) a[aria-current="page"]::after {
+    transform: skewX(-18deg) scaleX(1); transform-origin: left center;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .nav a, .nav a::after { transition: none !important; transform: none; }
+  .nav a:hover::after, .nav a:focus-visible::after, .nav a[aria-current="page"]::after { transform: skewX(-18deg) scaleX(1) !important; }
+}
