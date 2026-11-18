@@ -3,6 +3,7 @@ import { ArrowRight } from 'lucide-react';
 import { Header, Footer, EventCard } from '../components/Site';
 import { PHONE, PHONE_HREF, ADDRESS, MAPS_HREF } from '../lib/info';
 import { upcoming } from '../lib/events';
+import OpenNow from '../components/OpenNow';
 
 const TILES = [
   { href: '/reserver', title: 'Jouer', sub: '9 terrains indoor', tag: 'dès 9 €', image: '/images/academie.webp' },
@@ -21,10 +22,20 @@ export default function Home() {
       <Header overlay />
       <main className="home">
         <section className="hero">
-          <img src="/images/hero-padel.webp" alt="Terrains de padel indoor éclairés, vus depuis l'allée vitrée" className="hero-img" />
+          <img src="/images/hero-padel.webp" alt="Terrains de padel indoor éclairés, vus depuis l'allée vitrée" className="hero-img" fetchPriority="high" />
+          <svg className="hero-lines" viewBox="0 0 1200 700" preserveAspectRatio="xMaxYMax slice" aria-hidden="true">
+            <path d="M60 700 L400 140" pathLength="1" />
+            <path d="M1140 700 L800 140" pathLength="1" />
+            <path d="M200 470 L1000 470" pathLength="1" />
+          </svg>
           <div className="wrap hero-txt">
-            <h1>TNP Padel Club</h1>
-            <p className="hero-sub">Ouvert 7j/7 de 6 h à minuit</p>
+            <OpenNow />
+            <h1><span className="h1-big">TNP</span><span className="h1-small">Padel Club</span></h1>
+            <p className="hero-sub">9 terrains indoor, réservables en ligne.</p>
+            <div className="hero-cta">
+              <Link href="/reserver" className="btn btn-blue btn-slant"><span>Réserver un terrain</span></Link>
+              <Link href="/tarifs" className="btn btn-ghost btn-slant"><span>Tarifs</span></Link>
+            </div>
           </div>
         </section>
 
