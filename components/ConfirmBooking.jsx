@@ -69,9 +69,11 @@ export default function ConfirmBooking() {
             {court.filmed && <li><Video size={20} /><span>Vidéo</span><strong>Match filmé et statistiques</strong></li>}
             <li className="confirm-total"><Euro size={20} /><span>Total</span><strong>{price} €</strong></li>
           </ul>
+          <div className="confirm-cta">
           <button className="btn btn-blue btn-lg confirm-btn" onClick={confirm} disabled={user === undefined}>
             {user === null ? 'Se connecter pour réserver' : `Réserver pour ${price} €`}
           </button>
+          </div>
           <p className="note">Démo : la réservation est enregistrée sur cet appareil uniquement.</p>
         </div>
       </div>

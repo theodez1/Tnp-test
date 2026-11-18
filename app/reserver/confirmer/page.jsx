@@ -8,7 +8,7 @@ export default function Confirmer() {
   return (
     <>
       <Header />
-      <main className="wrap page page-narrow">
+      <main className="wrap page page-confirm">
         <Suspense><ConfirmBooking /></Suspense>
       </main>
       <Footer />
