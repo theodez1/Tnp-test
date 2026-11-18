@@ -23,11 +23,6 @@ export default function Home() {
       <main className="home">
         <section className="hero">
           <img src="/images/hero-padel.webp" alt="Terrains de padel indoor éclairés, vus depuis l'allée vitrée" className="hero-img" fetchPriority="high" />
-          <svg className="hero-lines" viewBox="0 0 1200 700" preserveAspectRatio="xMaxYMax slice" aria-hidden="true">
-            <path d="M60 700 L400 140" pathLength="1" />
-            <path d="M1140 700 L800 140" pathLength="1" />
-            <path d="M200 470 L1000 470" pathLength="1" />
-          </svg>
           <div className="wrap hero-txt">
             <OpenNow />
             <h1><span className="h1-big">TNP</span><span className="h1-small">Padel Club</span></h1>
