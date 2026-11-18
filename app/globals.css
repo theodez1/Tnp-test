@@ -595,9 +595,17 @@ p { margin: 0 0 1em; }
 .confirm-cta { margin: 0; }
 .confirm-cta + .note { margin-top: 14px; }
 @media (min-width: 860px) {
-  .confirm-card { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(360px, .95fr); }
-  .confirm-card .court-photo { aspect-ratio: auto; min-height: 100%; }
-  .confirm-body { padding: 32px 36px 32px; }
+  .page-confirm { max-width: 900px; }
+  .confirm-card { display: grid; grid-template-columns: 300px minmax(0, 1fr); }
+  .confirm-card .court-photo { aspect-ratio: auto; min-height: 0; }
+  .confirm-card .court-photo img { position: absolute; inset: 0; }
+  .confirm-body { padding: 20px 28px 22px; }
+  .confirm-body h1 { font-size: 2rem; margin-bottom: 6px; }
+  .confirm-list { margin-bottom: 14px; }
+  .confirm-list li { padding: 8px 0; }
+  .confirm-total strong { font-size: 1.5rem; }
+  .confirm-btn.btn-lg { padding-block: 12px; }
+  .confirm-cta + .note { margin-top: 10px; }
 }
 @media (max-width: 380px) {
   .confirm-list li { grid-template-columns: 24px 1fr; row-gap: 2px; }
