@@ -24,7 +24,7 @@ export default function Home() {
           <img src="/images/hero-padel.webp" alt="Terrains de padel indoor éclairés, vus depuis l'allée vitrée" className="hero-img" />
           <div className="wrap hero-txt">
             <h1>Toulouse Nord Padel</h1>
-            <p className="hero-sub">Ouvert 7j/7 de 6 h à minuit · Saint-Jory</p>
+            <p className="hero-sub">Ouvert 7j/7 de 6 h à minuit · Toulouse Nord</p>
           </div>
         </section>
 

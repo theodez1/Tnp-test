@@ -8,13 +8,13 @@ export const metadata = {
   metadataBase: new URL('https://tnp-web-roan.vercel.app'),
   openGraph: {
     title: 'Toulouse Nord Padel',
-    description: '9 terrains de padel indoor à Saint-Jory, ouverts 7j/7 de 6 h à minuit.',
+    description: '9 terrains de padel indoor à Toulouse Nord, ouverts 7j/7 de 6 h à minuit.',
     images: [{ url: '/images/og-tnp.jpg', width: 1600, height: 900 }],
     locale: 'fr_FR',
     type: 'website',
   },
-  title: 'Toulouse Nord Padel | Club de padel indoor à Saint-Jory',
-  description: 'Neuf terrains de padel indoor à Saint-Jory, ouverts de 6 h à minuit, tous les jours. Réservation, tournois, cours et courts filmés.',
+  title: 'Toulouse Nord Padel | Club de padel indoor à Toulouse Nord',
+  description: 'Neuf terrains de padel indoor à Toulouse Nord, ouverts de 6 h à minuit, tous les jours. Réservation, tournois, cours et courts filmés.',
 };
 
 export const viewport = { themeColor: '#0a1a3a' };
