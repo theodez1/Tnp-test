@@ -537,3 +537,12 @@ p { margin: 0 0 1em; }
 .nf-code { margin: 0; font-family: var(--font-display), sans-serif; font-style: italic; font-weight: 800; font-size: 7rem; line-height: 1; color: var(--sky); }
 .nf h1 { margin: 6px 0 10px; }
 .nf .row { justify-content: center; margin-top: 18px; }
+
+/* À la souris on ne peut pas glisser une liste sur le côté : les horaires et les jours restent tous visibles, sur plusieurs lignes.
+   Au doigt, la liste garde son défilement latéral. */
+@media (hover: hover) and (pointer: fine), (min-width: 700px) {
+  .times { flex-wrap: wrap; overflow: visible; padding-bottom: 0; }
+  .chips-scroll { flex-wrap: wrap; overflow: visible; margin: 0; padding-left: 0; padding-right: 0; }
+  .agenda > .chips { flex-wrap: wrap; overflow: visible; margin: 0; padding: 0; }
+  .svc-strip { flex-wrap: wrap; overflow: visible; margin: 0; padding: 0; }
+}
