@@ -1,7 +1,7 @@
 import { Header, Footer, PageHero, CallBand } from '../../components/Site';
 import { ADDRESS, MAPS_HREF, EMAIL, PHONE, PHONE_HREF } from '../../lib/info';
 
-export const metadata = { title: 'Le club | Toulouse Nord Padel' };
+export const metadata = { title: 'Le club | TNP Padel Club' };
 
 const FIGURES = [
   { big: '9', label: 'terrains homologués FFT', sub: '8 doubles et 1 single' },
@@ -74,7 +74,7 @@ export default function LeClub() {
           <div className="visit-card">
             <div>
               <p className="visit-big">{ADDRESS[0]}<br />{ADDRESS[1]}</p>
-              <p className="muted">Accès direct par l'A62, axe Toulouse – Montauban. Parking gratuit avec bornes de recharge électrique.</p>
+              <p className="muted">Accès direct par l'autoroute. Parking gratuit avec bornes de recharge électrique.</p>
             </div>
             <div className="row">
               <a className="btn btn-blue" href={MAPS_HREF} target="_blank" rel="noreferrer">Itinéraire</a>

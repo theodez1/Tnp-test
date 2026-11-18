@@ -23,8 +23,8 @@ export default function Home() {
         <section className="hero">
           <img src="/images/hero-padel.webp" alt="Terrains de padel indoor éclairés, vus depuis l'allée vitrée" className="hero-img" />
           <div className="wrap hero-txt">
-            <h1>Toulouse Nord Padel</h1>
-            <p className="hero-sub">Ouvert 7j/7 de 6 h à minuit · Toulouse Nord</p>
+            <h1>TNP Padel Club</h1>
+            <p className="hero-sub">Ouvert 7j/7 de 6 h à minuit</p>
           </div>
         </section>
 
@@ -58,7 +58,7 @@ export default function Home() {
           <div>
             <h2 id="visit-t">Venir au club</h2>
             <p className="visit-big">{ADDRESS[0]}<br />{ADDRESS[1]}</p>
-            <p className="muted">Accès direct par l'A62. Parking gratuit avec bornes de recharge, ouvert tous les jours de 6 h à minuit.</p>
+            <p className="muted">Accès direct par l'autoroute. Parking gratuit avec bornes de recharge, ouvert tous les jours de 6 h à minuit.</p>
             <div className="row">
               <a className="btn btn-blue" href={MAPS_HREF} target="_blank" rel="noreferrer">Itinéraire</a>
               <a className="btn btn-line" href={PHONE_HREF}>{PHONE}</a>

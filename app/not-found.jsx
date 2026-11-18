@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { Header, Footer } from '../components/Site';
 
-export const metadata = { title: 'Page introuvable | Toulouse Nord Padel' };
+export const metadata = { title: 'Page introuvable | TNP Padel Club' };
 
 export default function NotFound() {
   return (

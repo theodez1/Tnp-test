@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { Header, Footer, PageHero, CallBand } from '../../components/Site';
 
-export const metadata = { title: 'Académie | Toulouse Nord Padel' };
+export const metadata = { title: 'Académie | TNP Padel Club' };
 
 const COACHES = [
   { name: 'Yannick', bio: 'Ancien joueur de tennis professionnel (590e mondial, top 40 français), diplômé TFP Padel.' },

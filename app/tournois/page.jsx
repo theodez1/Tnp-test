@@ -1,7 +1,7 @@
 import { Header, Footer } from '../../components/Site';
 import Agenda from '../../components/Agenda';
 
-export const metadata = { title: 'Tournois et animations | Toulouse Nord Padel' };
+export const metadata = { title: 'Tournois et animations | TNP Padel Club' };
 
 export default function Tournois() {
   return (

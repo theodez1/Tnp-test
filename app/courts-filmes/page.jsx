@@ -1,7 +1,7 @@
 import { Header, Footer, PageHero, CallBand } from '../../components/Site';
 import { PRICE_TIERS, CENTRAL_EXTRA } from '../../lib/info';
 
-export const metadata = { title: 'Courts filmés | Toulouse Nord Padel' };
+export const metadata = { title: 'Courts filmés | TNP Padel Club' };
 
 export default function CourtsFilmes() {
   return (

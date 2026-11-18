@@ -2,7 +2,7 @@ import { Header, Footer } from '../../components/Site';
 import Booking from '../../components/Booking';
 import { PHONE, PHONE_HREF } from '../../lib/info';
 
-export const metadata = { title: 'Réserver un terrain | Toulouse Nord Padel' };
+export const metadata = { title: 'Réserver un terrain | TNP Padel Club' };
 
 export default function Reserver() {
   return (

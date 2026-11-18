@@ -2,7 +2,7 @@ import Link from 'next/link';
 import { Header, Footer } from '../../components/Site';
 import { PRICE_TIERS, CENTRAL_EXTRA, SINGLE_PRICE } from '../../lib/info';
 
-export const metadata = { title: 'Tarifs | Toulouse Nord Padel' };
+export const metadata = { title: 'Tarifs | TNP Padel Club' };
 
 export default function Tarifs() {
   return (

@@ -40,8 +40,8 @@ export function Header({ overlay = false }) {
     <>
       <header className={`hdr ${overlay ? 'hdr-overlay' : ''} ${scrolled ? 'is-solid' : ''} ${open ? 'is-open' : ''}`}>
         <div className="wrap hdr-in">
-          <Link href="/" className="brand" aria-label="Toulouse Nord Padel, accueil">
-            <img src="/images/logo-tnp.png" alt="" width="1840" height="300" />
+          <Link href="/" className="brand" aria-label="TNP Padel Club, accueil">
+            <img src="/images/logo-tnp.png" alt="" width="925" height="300" />
           </Link>
           <nav className={`nav ${open ? 'is-open' : ''}`} aria-label="Navigation principale">
             {NAV.map((l) => (
@@ -80,7 +80,7 @@ export function Footer() {
     <footer className="ftr">
       <div className="wrap ftr-grid">
         <div>
-          <img src="/images/logo-tnp.png" alt="Toulouse Nord Padel" className="ftr-logo" width="1840" height="300" />
+          <img src="/images/logo-tnp.png" alt="TNP Padel Club" className="ftr-logo" width="925" height="300" />
           <p>{ADDRESS[0]}<br />{ADDRESS[1]}</p>
           <p><a href={MAPS_HREF} target="_blank" rel="noreferrer">Voir l'itinéraire</a></p>
         </div>
@@ -97,7 +97,7 @@ export function Footer() {
           {NAV.map((l) => <Link key={l.href} href={l.href}>{l.label}</Link>)}
         </nav>
       </div>
-      <div className="wrap ftr-legal">© {new Date().getFullYear()} Toulouse Nord Padel</div>
+      <div className="wrap ftr-legal">© {new Date().getFullYear()} TNP Padel Club</div>
     </footer>
   );
 }
