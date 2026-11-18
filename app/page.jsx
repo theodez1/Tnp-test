@@ -3,7 +3,6 @@ import { ArrowRight } from 'lucide-react';
 import { Header, Footer, EventCard } from '../components/Site';
 import { PHONE, PHONE_HREF, ADDRESS, MAPS_HREF } from '../lib/info';
 import { upcoming } from '../lib/events';
-import OpenNow from '../components/OpenNow';
 
 const TILES = [
   { href: '/reserver', title: 'Jouer', sub: '9 terrains indoor', tag: 'dès 9 €', image: '/images/academie.webp' },
@@ -24,7 +23,6 @@ export default function Home() {
         <section className="hero">
           <img src="/images/hero-padel.webp" alt="Terrains de padel indoor éclairés, vus depuis l'allée vitrée" className="hero-img" fetchPriority="high" />
           <div className="wrap hero-txt">
-            <OpenNow />
             <h1><span className="h1-big">TNP</span><span className="h1-small">Padel Club</span></h1>
             <p className="hero-sub">9 terrains indoor, réservables en ligne.</p>
             <div className="hero-cta">
